@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBORAYHU · Camiseta solidaria / Spendenshirt</title>
+<meta name="description" content="Spendenshirt — 100% des Gewinns für ein Tierheim in Paraguay. / Camiseta solidaria — 100% de la ganancia para un refugio de animales en Paraguay.">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#26211D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EEE3; --paper-2:#EDE4D5; --card:#FBF7EF;
+    --ink:#26211D; --ink-soft:#6B5F54; --line:#E3D7C4;
+    --accent:#A9603F; --accent-dark:#8C4E32;
+    --maxw:600px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif; color:var(--ink); background:var(--paper);
+    line-height:1.65; -webkit-font-smoothing:antialiased; padding-bottom:84px}
+  img{max-width:100%; display:block}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif; font-weight:600; line-height:1.12; letter-spacing:-.01em}
+  .eyebrow{display:flex; align-items:center; gap:10px; font-size:.72rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:14px}
+  .eyebrow::before{content:""; width:26px; height:1.5px; background:var(--accent); opacity:.6}
+  .trust .eyebrow, .intro .eyebrow{justify-content:center}
+  .trust .eyebrow::before{display:none}
+
+  /* Unified image frame */
+  .frame{position:relative; border-radius:22px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 22px 45px -22px rgba(38,33,29,.4); background:var(--card)}
+  .frame img{width:100%; height:auto; display:block}
+  .frame .cap{position:absolute; left:14px; bottom:14px; background:rgba(244,238,227,.92); backdrop-filter:blur(6px);
+    border:1px solid var(--line); color:var(--ink); font-size:.64rem; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; padding:7px 13px; border-radius:999px}
+  p{color:var(--ink-soft)}
+
+  /* Topbar */
+  .topbar{position:sticky; top:0; z-index:30; background:rgba(244,238,227,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:58px}
+  .brand{display:flex; align-items:center; gap:9px; font-family:'Fraunces'; font-weight:600; font-size:1.15rem; letter-spacing:.04em}
+  .brand-paw{height:17px; width:auto; display:block}
+  .lang{display:flex; gap:1px; border:1px solid var(--line); border-radius:999px; overflow:hidden}
+  .lang button{font:inherit; font-weight:600; font-size:.78rem; border:0; background:transparent; color:var(--ink-soft); padding:6px 13px; cursor:pointer}
+  .lang button.active{background:var(--ink); color:var(--paper)}
+
+  /* Hero */
+  .hero{margin-top:20px}
+  .hero img{width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center top; display:block}
+  .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(20,16,13,.85) 0%, rgba(20,16,13,.4) 38%, rgba(20,16,13,0) 66%)}
+  .ribbon{position:absolute; top:14px; left:14px; background:rgba(38,33,29,.8); color:#fff; backdrop-filter:blur(4px);
+    font-size:.66rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:7px 14px; border-radius:999px}
+  .hero-text{position:absolute; left:0; right:0; bottom:0; padding:26px 24px 28px; color:#fff}
+  .hero-text h1{color:#fff; font-size:2.3rem; margin-bottom:8px; text-shadow:0 1px 20px rgba(0,0,0,.25)}
+  .hero-text h1 em{font-style:italic; color:#EAC6A9}
+  .hero-text .lead{color:rgba(255,255,255,.92); font-size:1.02rem; max-width:32ch; margin:0}
+  .intro{text-align:center; padding:24px 0 8px}
+
+  .cd{display:inline-flex; align-items:center; gap:14px; border:1px solid var(--line); background:var(--card);
+    border-radius:999px; padding:10px 20px; margin-bottom:8px}
+  .cd .lbl{font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft)}
+  .cd .units{display:flex; gap:10px; font-family:'Fraunces'; font-weight:600}
+  .cd .units b{font-size:1.1rem}
+  .cd .units span{font-size:.66rem; color:var(--ink-soft); font-family:'Inter'; font-weight:500}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%;
+    background:var(--accent); color:#fff; text-decoration:none; font-weight:600; font-size:1.02rem;
+    padding:16px 22px; border:0; border-radius:12px; cursor:pointer; transition:background .2s, transform .08s}
+  .btn:hover{background:var(--accent-dark)} .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--ink)}
+  .btn.ghost:hover{background:var(--ink); color:var(--paper)}
+
+  section{padding:42px 0}
+  .divider{border:0; border-top:1px solid var(--line); margin:0}
+  section h2{font-size:1.7rem; margin-bottom:14px}
+  section p{margin-bottom:14px}
+
+  /* Gallery */
+  .gallery{display:grid; gap:16px; margin-top:6px}
+  .figimg{margin:20px 0 4px}
+  .pricerow{display:flex; align-items:baseline; gap:12px; margin:22px 0 10px}
+  .price{font-family:'Fraunces'; font-size:2.1rem; font-weight:700}
+  .price-note{font-size:.85rem; color:var(--ink-soft)}
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chips span{border:1px solid var(--line); background:var(--card); border-radius:999px; padding:7px 14px; font-size:.85rem; font-weight:500}
+
+  /* Steps timeline */
+  .steps{margin-top:8px; position:relative}
+  .step{display:flex; gap:16px; padding:0 0 22px; position:relative}
+  .step:last-child{padding-bottom:0}
+  .step .n{flex:0 0 36px; height:36px; border-radius:50%; border:1.5px solid var(--ink); color:var(--ink);
+    font-family:'Fraunces'; font-weight:600; display:flex; align-items:center; justify-content:center; background:var(--paper); z-index:1}
+  .step:not(:last-child)::before{content:""; position:absolute; left:18px; top:36px; bottom:0; width:1.5px; background:var(--line)}
+  .step.key .n{background:var(--accent); border-color:var(--accent); color:#fff}
+  .step .t{font-weight:600; color:var(--ink); margin-bottom:2px}
+  .step .d{font-size:.93rem; color:var(--ink-soft); line-height:1.5}
+
+  /* Pay */
+  .paybox{border:1px solid var(--line); background:var(--card); border-radius:16px; padding:6px 18px; margin-top:6px}
+  .payrow{display:flex; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid var(--line); font-size:.95rem}
+  .payrow:last-child{border-bottom:0}
+  .payrow .k{color:var(--ink-soft)} .payrow .v{font-weight:600; text-align:right; word-break:break-word}
+  .note{font-size:.9rem; color:var(--ink-soft); margin-top:14px; padding-left:14px; border-left:2px solid var(--accent)}
+
+  /* Trust band */
+  .trust{position:relative; overflow:hidden; background:var(--ink); color:var(--paper); text-align:center; padding:66px 22px}
+  .trust-bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; opacity:.4}
+  .trust-scrim{position:absolute; inset:0; background:linear-gradient(rgba(20,16,13,.66) 0%, rgba(20,16,13,.8) 100%)}
+  .trust-inner{position:relative; z-index:1}
+  .trust .eyebrow{color:#E7B89C}
+  .trust h2{color:#fff; font-size:1.7rem; margin-bottom:4px}
+  .trust .pct{font-family:'Fraunces'; font-weight:700; font-size:4rem; line-height:1; color:#fff; margin:10px 0}
+  .trust p{color:rgba(244,238,227,.82); max-width:34ch; margin:0 auto}
+
+  footer{text-align:center; padding:40px 22px; color:var(--ink-soft); font-size:.88rem}
+  footer a{color:var(--ink); font-weight:600; text-decoration:none}
+  footer .links{margin-bottom:8px}
+
+  /* Sticky order bar */
+  .orderbar{position:fixed; left:0; right:0; bottom:0; z-index:40; background:rgba(244,238,227,.95);
+    backdrop-filter:blur(10px); border-top:1px solid var(--line); padding:12px 0 calc(12px + env(safe-area-inset-bottom))}
+  .orderbar .wrap{display:flex; align-items:center; gap:14px}
+  .orderbar .p{flex:0 0 auto}
+  .orderbar .p .amt{font-family:'Fraunces'; font-weight:700; font-size:1.2rem; line-height:1}
+  .orderbar .p .lab{font-size:.7rem; color:var(--ink-soft)}
+  .orderbar .btn{flex:1}
+
+  /* Coming-soon teaser */
+  #soon{position:fixed; inset:0; z-index:100; background:var(--paper); display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; padding:32px}
+  #soon[hidden]{display:none}
+  .soon-paw{width:60px; height:auto; margin-bottom:18px; opacity:.9}
+  .soon-brand{font-family:'Fraunces'; font-weight:600; letter-spacing:.08em; font-size:1.05rem; margin-bottom:20px}
+  #soon h2{font-size:2.1rem; margin-bottom:10px}
+  #soon p{max-width:32ch; margin:0 auto 24px}
+  .btn-inline{width:auto; padding:14px 28px}
+  .soon-lang{position:absolute; top:18px; right:18px; display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden}
+  .soon-lang button{font:inherit; font-weight:600; font-size:.78rem; border:0; background:transparent; color:var(--ink-soft); padding:6px 13px; cursor:pointer}
+  .soon-lang button.active{background:var(--ink); color:var(--paper)}
+
+  /* Overlay quote on lifestyle image */
+  .imgquote{position:relative}
+  .imgquote .scrim{background:linear-gradient(to top, rgba(20,16,13,.8) 0%, rgba(20,16,13,.2) 45%, rgba(20,16,13,0) 70%)}
+  .imgquote .oq{position:absolute; left:0; right:0; bottom:0; padding:22px; color:#fff;
+    font-family:'Fraunces',serif; font-weight:600; font-size:1.25rem; line-height:1.3; text-shadow:0 1px 18px rgba(0,0,0,.3)}
+
+  /* Paw motif divider */
+  .pawrule{display:flex; align-items:center; justify-content:center; gap:16px; padding:8px 0}
+  .pawrule::before,.pawrule::after{content:""; height:1px; width:46px; background:var(--line)}
+  .pawrule svg{width:24px; height:24px; fill:var(--accent); opacity:.85; flex:0 0 auto}
+
+  @media(min-width:560px){ .hero-text h1{font-size:2.7rem} .gallery{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HIER ALLES EINTRAGEN  /  EDITÁ TODO AQUÍ
+     ============================================================ -->
+<script>
+const CONFIG = {
+  comingSoon:  true,                           // true = Teaser-Seite; auf false = Aktion ist LIVE
+
+  instagram:   "https://instagram.com/DEIN_HANDLE",
+  handle:      "@DEIN_HANDLE",
+  whatsapp:    "595900000000",                 // nur Ziffern, mit 595
+  shelterName: "[Name des Tierheims]",
+  city:        "Asunción, Paraguay",
+
+  price:       "150.000 ₲",
+  color:       "Naturweiß / Beige",
+  sizes:       "S · M · L · XL · XXL",
+  material:    "100% Baumwolle",
+
+  deadline:    "2026-07-31T23:59:00",          // Bestellschluss
+  production:  { es:"aprox. 2–3 semanas", de:"ca. 2–3 Wochen" },
+
+  formUrl:     "https://forms.gle/DEIN-FORMULAR",
+
+  bank: {
+    bankName: "[Banco / Financiera]",
+    holder:   "[Titular de la cuenta]",
+    account:  "[Número de cuenta]",
+    alias:    "[Alias]",
+    ci:       "[C.I.]"
+  }
+};
+</script>
+
+<!-- COMING SOON TEASER (CONFIG.comingSoon) -->
+<div id="soon" hidden>
+  <div class="soon-lang">
+    <button data-lang="de" class="active">DE</button>
+    <button data-lang="es">ES</button>
+  </div>
+  <img class="soon-paw" src="img/paw.png" alt="">
+  <div class="soon-brand">MBORAYHU</div>
+  <h2 data-i="soon_h">Bald geht's los</h2>
+  <p data-i="soon_p">Die Spendenaktion für die Tiere startet in Kürze.</p>
+  <a class="btn btn-inline" id="soon-ig" href="#" target="_blank" rel="noopener" data-i="soon_cta">Auf Instagram folgen</a>
+</div>
+
+<header class="topbar"><div class="wrap">
+  <div class="brand">MBORAYHU<img src="img/paw.png" alt="" class="brand-paw"></div>
+  <div class="lang" id="lang">
+    <button data-lang="de" class="active">DE</button>
+    <button data-lang="es">ES</button>
+  </div>
+</div></header>
+
+<main>
+  <div class="wrap">
+    <!-- HERO -->
+    <div class="hero frame">
+      <img src="img/hero.jpg" alt="MBORAYHU">
+      <div class="scrim"></div>
+      <span class="ribbon" data-i="badge">Pre-venta solidaria</span>
+      <div class="hero-text">
+        <h1 data-i="h1">Tu camiseta <em>salva vidas</em></h1>
+        <p class="lead" data-i="sub">100% de la ganancia para un refugio de animales en Paraguay.</p>
+      </div>
+    </div>
+    <div class="intro">
+      <div class="cd">
+        <span class="lbl" data-i="cd_label">Cierra en</span>
+        <span class="units">
+          <span><b id="cd-d">–</b> <span data-i="cd_days">días</span></span>
+          <span><b id="cd-h">–</b> <span data-i="cd_hours">hs</span></span>
+          <span><b id="cd-m">–</b> <span data-i="cd_min">min</span></span>
+        </span>
+      </div>
+      <a class="btn js-order" href="#" target="_blank" rel="noopener" data-i="cta" style="margin-top:14px">Pedir mi camiseta</a>
+    </div>
+  </div>
+
+
+  <!-- CAUSA -->
+  <div class="wrap"><section>
+    <div class="eyebrow" data-i="causa_eye">La causa</div>
+    <h2 data-i="causa_h">Por qué lo hacemos</h2>
+    <p data-i="causa_p1"></p>
+    <div class="figimg frame imgquote">
+      <img src="img/lifestyle.jpg" alt="">
+      <div class="scrim"></div>
+      <p class="oq" data-i="causa_quote"></p>
+    </div>
+    <p data-i="causa_p2"></p>
+  </section></div>
+
+
+  <!-- PRODUCTO -->
+  <div class="wrap"><section>
+    <div class="eyebrow" data-i="prod_eye">El producto</div>
+    <h2 data-i="prod_h">La camiseta</h2>
+    <div class="gallery">
+      <figure class="frame"><img src="img/shirt_front.jpg" alt="Frente"><span class="cap" data-i="prod_front">Frente</span></figure>
+      <figure class="frame"><img src="img/shirt_back.jpg" alt="Espalda"><span class="cap" data-i="prod_back">Espalda</span></figure>
+    </div>
+    <div class="pricerow"><span class="price" id="price"></span><span class="price-note" data-i="price_note">+ envío</span></div>
+    <div class="chips"><span id="f-color"></span><span id="f-sizes"></span><span id="f-material"></span></div>
+  </section></div>
+
+
+  <!-- COMO FUNCIONA -->
+  <div class="wrap"><section>
+    <div class="eyebrow" data-i="how_eye">Importante</div>
+    <h2 data-i="how_h">Cómo funciona</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><div class="t" data-i="s1t"></div><div class="d" data-i="s1d"></div></div></div>
+      <div class="step"><div class="n">2</div><div><div class="t" data-i="s2t"></div><div class="d" data-i="s2d"></div></div></div>
+      <div class="step key"><div class="n">3</div><div><div class="t" data-i="s3t"></div><div class="d" data-i="s3d"></div></div></div>
+      <div class="step"><div class="n">4</div><div><div class="t" data-i="s4t"></div><div class="d"><span data-i="s4d"></span> <b id="prodtime"></b></div></div></div>
+    </div>
+  </section></div>
+
+
+  <!-- PAGO -->
+  <div class="wrap"><section>
+    <div class="eyebrow" data-i="pay_eye">Pago</div>
+    <h2 data-i="pay_h">Datos para transferir</h2>
+    <div class="paybox">
+      <div class="payrow"><span class="k" data-i="pay_bank">Banco</span><span class="v" id="b-bank"></span></div>
+      <div class="payrow"><span class="k" data-i="pay_holder">Titular</span><span class="v" id="b-holder"></span></div>
+      <div class="payrow"><span class="k" data-i="pay_acc">Cuenta</span><span class="v" id="b-acc"></span></div>
+      <div class="payrow"><span class="k">Alias</span><span class="v" id="b-alias"></span></div>
+      <div class="payrow"><span class="k">C.I.</span><span class="v" id="b-ci"></span></div>
+    </div>
+    <p class="note" data-i="pay_note"></p>
+  </section></div>
+</main>
+
+<!-- TRUST -->
+<div class="trust">
+  <img class="trust-bg" src="img/backview.jpg" alt="">
+  <div class="trust-scrim"></div>
+  <div class="trust-inner">
+    <div class="eyebrow" data-i="trust_eye">Transparencia</div>
+    <h2 data-i="trust_h">100% para los animales</h2>
+    <div class="pct">100%</div>
+    <p data-i="trust_p"></p>
+  </div>
+</div>
+
+<footer>
+  <div class="links"><a id="ig" href="#" target="_blank" rel="noopener"></a> &nbsp;·&nbsp; <a id="wa" href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+  <div id="foot-shelter"></div>
+</footer>
+
+<!-- STICKY ORDER BAR -->
+<div class="orderbar"><div class="wrap">
+  <div class="p"><div class="amt" id="bar-price"></div><div class="lab" data-i="bar_lab">por camiseta</div></div>
+  <a class="btn js-order" href="#" target="_blank" rel="noopener" data-i="cta">Pedir mi camiseta</a>
+</div></div>
+
+<script>
+const T = {
+  es:{
+    badge:"Pre-venta solidaria", h1:"Tu camiseta <em>salva vidas</em>",
+    sub:"100% de la ganancia para un refugio de animales en Paraguay.",
+    cd_label:"Cierra en", cd_days:"días", cd_hours:"hs", cd_min:"min",
+    cta:"Pedir mi camiseta", bar_lab:"por camiseta", price_note:"+ envío",
+    causa_eye:"La causa", causa_h:"Por qué lo hacemos",
+    causa_p1:"En <b class='sh'></b> reciben animales heridos, abandonados y desnutridos — en su mayoría perros. Con cada camiseta ayudás a cubrir comida, atención veterinaria y refugio.",
+    causa_p2:"No es un negocio: el 100% de la ganancia (precio menos el costo de impresión) va directo al refugio. Pronto vas a ver acá el video grabado en el lugar.",
+    causa_quote:"Cada camiseta es comida, refugio y una segunda oportunidad.",
+    back_quote:"Llevá el mensaje a todas partes.",
+    prod_eye:"El producto", prod_h:"La camiseta", prod_front:"Frente", prod_back:"Espalda",
+    how_eye:"Importante", how_h:"Cómo funciona",
+    s1t:"Hacé tu pedido", s1d:"Elegí talle y cantidad en el formulario.",
+    s2t:"Pagá por transferencia", s2d:"Y enviás el comprobante para confirmar.",
+    s3t:"Esperamos el cierre", s3d:"Los pedidos se juntan hasta la fecha límite. Recién ahí se imprimen.",
+    s4t:"Producción y envío", s4d:"Tiempo estimado de producción:",
+    order_eye:"Tu pedido", order_h:"Pedí la tuya",
+    pay_eye:"Pago", pay_h:"Datos para transferir",
+    pay_bank:"Banco", pay_holder:"Titular", pay_acc:"Cuenta",
+    pay_note:"Después de transferir, enviá el comprobante por el formulario o por WhatsApp para confirmar tu pedido.",
+    trust_eye:"Transparencia", trust_h:"100% para los animales",
+    trust_p:"Toda la ganancia va al refugio. Al cerrar la acción publicamos los números y el video de la entrega.",
+    closed:"Pedido cerrado · ¡Gracias!",
+    soon_h:"Muy pronto", soon_p:"La acción solidaria por los animales arranca en breve.", soon_cta:"Seguinos en Instagram"
+  },
+  de:{
+    badge:"Spenden-Vorbestellung", h1:"Dein Shirt <em>rettet Leben</em>",
+    sub:"100% des Gewinns für ein Tierheim in Paraguay.",
+    cd_label:"Schluss in", cd_days:"Tage", cd_hours:"Std", cd_min:"Min",
+    cta:"Shirt bestellen", bar_lab:"pro Shirt", price_note:"+ Versand",
+    causa_eye:"Die Aktion", causa_h:"Warum wir das machen",
+    causa_p1:"Im <b class='sh'></b> landen verletzte, ausgesetzte und ausgehungerte Tiere — meist Hunde. Mit jedem Shirt hilfst du bei Futter, Tierarzt und Unterkunft.",
+    causa_p2:"Kein Geschäft: 100% des Gewinns (Preis minus Druckkosten) gehen direkt ans Tierheim. Bald siehst du hier das Video von vor Ort.",
+    causa_quote:"Jedes Shirt heißt Futter, Schutz und eine zweite Chance.",
+    back_quote:"Trag die Botschaft nach draußen.",
+    prod_eye:"Das Produkt", prod_h:"Das Shirt", prod_front:"Vorne", prod_back:"Hinten",
+    how_eye:"Wichtig", how_h:"So funktioniert's",
+    s1t:"Bestellung aufgeben", s1d:"Größe und Menge im Formular wählen.",
+    s2t:"Per Überweisung zahlen", s2d:"Und den Beleg zur Bestätigung schicken.",
+    s3t:"Bestellfenster läuft", s3d:"Bestellungen werden bis zum Stichtag gesammelt. Erst dann wird gedruckt.",
+    s4t:"Produktion & Versand", s4d:"Geschätzte Produktionszeit:",
+    order_eye:"Deine Bestellung", order_h:"Jetzt bestellen",
+    pay_eye:"Zahlung", pay_h:"Daten für die Überweisung",
+    pay_bank:"Bank", pay_holder:"Kontoinhaber", pay_acc:"Konto",
+    pay_note:"Nach der Überweisung den Beleg per Formular oder WhatsApp schicken, um die Bestellung zu bestätigen.",
+    trust_eye:"Transparenz", trust_h:"100% für die Tiere",
+    trust_p:"Der gesamte Gewinn geht ans Tierheim. Zum Abschluss veröffentlichen wir die Zahlen und das Video der Übergabe.",
+    closed:"Bestellung geschlossen · Danke!",
+    soon_h:"Bald geht's los", soon_p:"Die Spendenaktion für die Tiere startet in Kürze.", soon_cta:"Auf Instagram folgen"
+  }
+};
+
+let lang = "es";
+function applyLang(l){
+  lang = l; document.documentElement.lang = l;
+  const t = T[l];
+  document.querySelectorAll("[data-i]").forEach(el=>{
+    const k = el.getAttribute("data-i");
+    if(t[k]!==undefined) el.innerHTML = t[k];
+  });
+  fillDynamic();
+  document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active", b.dataset.lang===l));
+}
+function fillDynamic(){
+  document.querySelectorAll(".sh").forEach(e=>e.textContent=CONFIG.shelterName);
+  document.getElementById("price").textContent = CONFIG.price;
+  document.getElementById("bar-price").textContent = CONFIG.price;
+  document.getElementById("f-color").textContent = CONFIG.color;
+  document.getElementById("f-sizes").textContent = CONFIG.sizes;
+  document.getElementById("f-material").textContent = CONFIG.material;
+  document.getElementById("prodtime").textContent = CONFIG.production[lang];
+  document.getElementById("b-bank").textContent = CONFIG.bank.bankName;
+  document.getElementById("b-holder").textContent = CONFIG.bank.holder;
+  document.getElementById("b-acc").textContent = CONFIG.bank.account;
+  document.getElementById("b-alias").textContent = CONFIG.bank.alias;
+  document.getElementById("b-ci").textContent = CONFIG.bank.ci;
+  const ig=document.getElementById("ig"); ig.textContent=CONFIG.handle; ig.href=CONFIG.instagram;
+  document.getElementById("wa").href="https://wa.me/"+CONFIG.whatsapp;
+  document.getElementById("foot-shelter").textContent = CONFIG.shelterName + " · " + CONFIG.city;
+  document.querySelectorAll(".js-order").forEach(a=>a.href=CONFIG.formUrl);
+  const sig=document.getElementById("soon-ig"); if(sig) sig.href=CONFIG.instagram;
+}
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-lang]"); if(b) applyLang(b.dataset.lang); });
+
+function tick(){
+  const end=new Date(CONFIG.deadline).getTime(), now=Date.now();
+  let diff=Math.max(0,end-now);
+  const d=Math.floor(diff/86400000); diff-=d*86400000;
+  const h=Math.floor(diff/3600000); diff-=h*3600000;
+  const m=Math.floor(diff/60000);
+  document.getElementById("cd-d").textContent=d;
+  document.getElementById("cd-h").textContent=h;
+  document.getElementById("cd-m").textContent=m;
+  if(end-now<=0){
+    document.querySelectorAll(".js-order").forEach(b=>{ b.textContent=T[lang].closed; b.style.background="#9a9088"; b.removeAttribute("href"); });
+  }
+}
+applyLang("de"); tick(); setInterval(tick,30000);
+if(CONFIG.comingSoon){ document.getElementById("soon").hidden=false; document.body.style.overflow="hidden"; }
+</script>
+</body>
+</html>
