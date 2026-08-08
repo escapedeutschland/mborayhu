@@ -417,7 +417,8 @@ function tick(){
   }
 }
 applyLang("de"); tick(); setInterval(tick,30000);
-if(CONFIG.comingSoon){ document.getElementById("soon").hidden=false; document.body.style.overflow="hidden"; }
+var isPreview=/(?:[?&#])preview\b/i.test(location.search + location.hash);
+if(CONFIG.comingSoon && !isPreview){ document.getElementById("soon").hidden=false; document.body.style.overflow="hidden"; }
 </script>
 </body>
 </html>
