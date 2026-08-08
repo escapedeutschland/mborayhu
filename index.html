@@ -168,7 +168,6 @@ const CONFIG = {
 
   instagram:   "https://instagram.com/DEIN_HANDLE",
   handle:      "@DEIN_HANDLE",
-  whatsapp:    "595900000000",                 // nur Ziffern, mit 595
   shelterName: "[Name des Tierheims]",
   city:        "Asunción, Paraguay",
 
@@ -307,7 +306,7 @@ const CONFIG = {
 </div>
 
 <footer>
-  <div class="links"><a id="ig" href="#" target="_blank" rel="noopener"></a> &nbsp;·&nbsp; <a id="wa" href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+  <div class="links"><a id="ig" href="#" target="_blank" rel="noopener"></a></div>
   <div id="foot-shelter"></div>
 </footer>
 
@@ -338,7 +337,7 @@ const T = {
     order_eye:"Tu pedido", order_h:"Pedí la tuya",
     pay_eye:"Pago", pay_h:"Datos para transferir",
     pay_bank:"Banco", pay_holder:"Titular", pay_acc:"Cuenta",
-    pay_note:"Después de transferir, enviá el comprobante por el formulario o por WhatsApp para confirmar tu pedido.",
+    pay_note:"Después de transferir, subí el comprobante en el formulario para confirmar tu pedido.",
     trust_eye:"Transparencia", trust_h:"100% para los animales",
     trust_p:"Toda la ganancia va al refugio. Al cerrar la acción publicamos los números y el video de la entrega.",
     closed:"Pedido cerrado · ¡Gracias!",
@@ -363,7 +362,7 @@ const T = {
     order_eye:"Deine Bestellung", order_h:"Jetzt bestellen",
     pay_eye:"Zahlung", pay_h:"Daten für die Überweisung",
     pay_bank:"Bank", pay_holder:"Kontoinhaber", pay_acc:"Konto",
-    pay_note:"Nach der Überweisung den Beleg per Formular oder WhatsApp schicken, um die Bestellung zu bestätigen.",
+    pay_note:"Nach der Überweisung lädst du den Beleg (Überweisungsbestätigung) direkt im Formular hoch, um deine Bestellung zu bestätigen.",
     trust_eye:"Transparenz", trust_h:"100% für die Tiere",
     trust_p:"Der gesamte Gewinn geht ans Tierheim. Zum Abschluss veröffentlichen wir die Zahlen und das Video der Übergabe.",
     closed:"Bestellung geschlossen · Danke!",
@@ -396,7 +395,6 @@ function fillDynamic(){
   document.getElementById("b-alias").textContent = CONFIG.bank.alias;
   document.getElementById("b-ci").textContent = CONFIG.bank.ci;
   const ig=document.getElementById("ig"); ig.textContent=CONFIG.handle; ig.href=CONFIG.instagram;
-  document.getElementById("wa").href="https://wa.me/"+CONFIG.whatsapp;
   document.getElementById("foot-shelter").textContent = CONFIG.shelterName + " · " + CONFIG.city;
   document.querySelectorAll(".js-order").forEach(a=>a.href=CONFIG.formUrl);
   const sig=document.getElementById("soon-ig"); if(sig) sig.href=CONFIG.instagram;
