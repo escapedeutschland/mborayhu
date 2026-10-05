@@ -149,6 +149,35 @@
   .imgquote .oq{position:absolute; left:0; right:0; bottom:0; padding:22px; color:#fff;
     font-family:'Fraunces',serif; font-weight:600; font-size:1.25rem; line-height:1.3; text-shadow:0 1px 18px rgba(0,0,0,.3)}
 
+  /* Order form */
+  .fgrid{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+  .field{display:flex; flex-direction:column; gap:6px}
+  .field.full{grid-column:1/-1}
+  .field label,.flabel{font-size:.74rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft)}
+  .flabel{display:block; margin:20px 0 8px}
+  #orderForm input:not([type=radio]),#orderForm select{font:inherit; color:var(--ink); background:var(--card);
+    border:1px solid var(--line); border-radius:12px; padding:12px 14px; width:100%; -webkit-appearance:none; appearance:none}
+  #orderForm select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B5F54' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 14px center}
+  #orderForm input:focus,#orderForm select:focus{outline:2px solid var(--accent); outline-offset:0}
+  .opts{display:grid; gap:8px}
+  .opts label{display:flex; align-items:center; gap:10px; border:1px solid var(--line); background:var(--card);
+    border-radius:12px; padding:12px 14px; cursor:pointer; font-size:.93rem}
+  .opts input[type=radio]{width:auto; accent-color:var(--accent); margin:0; flex:0 0 auto}
+  .opts label span{flex:1 1 0; min-width:0}
+  .opts b{margin-left:auto; white-space:nowrap; padding-left:10px; flex:0 0 auto}
+  .opts label:has(input:checked){border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset}
+  .totalrow{display:flex; justify-content:space-between; align-items:baseline; border-top:1.5px solid var(--ink); margin-top:22px; padding:14px 2px 16px}
+  .totalrow b{font-family:'Fraunces'; font-size:1.5rem}
+  #o-err{border-left-color:#B3482F; color:#B3482F}
+  #o-done{border:1.5px solid var(--accent); background:var(--card); border-radius:16px; padding:24px 20px; text-align:center}
+  #o-done h3{font-size:1.4rem; margin-bottom:8px}
+  #o-done p{font-size:.95rem}
+  .done-code{font-family:'Fraunces'; font-weight:700; font-size:1.4rem; letter-spacing:.05em; margin:10px 0 2px}
+  .done-total{font-family:'Fraunces'; font-weight:700; font-size:1.9rem; margin:8px 0 14px}
+  .btn.wa{background:#1FAF55} .btn.wa:hover{background:#188f46}
+  @media(max-width:559px){ .fgrid{grid-template-columns:1fr} }
+
   /* FAQ */
   .faq details{border:1px solid var(--line); background:var(--card); border-radius:14px; padding:0 18px; margin-bottom:10px}
   .faq summary{cursor:pointer; font-weight:600; color:var(--ink); padding:14px 0; list-style:none; display:flex; align-items:baseline; justify-content:space-between; gap:12px}
@@ -189,7 +218,7 @@ const CONFIG = {
   deadline:    "2026-11-30T23:59:00",          // Bestellschluss — PLATZHALTER, vor Launch aufs echte Datum setzen!
   production:  { es:"aprox. 2–3 semanas", de:"ca. 2–3 Wochen" },
 
-  formUrl:     "https://forms.gle/DEIN-FORMULAR",
+  whatsapp:    "595XXXXXXXXX",                 // WhatsApp für Comprobantes — ANPASSEN! Nur Ziffern, mit Ländercode 595
 
   shippingAsuncion: "25.000 ₲",                // Versandpauschale Gran Asunción — ANPASSEN nach Kurier-Angebot!
 
@@ -296,6 +325,59 @@ const CONFIG = {
   </section></div>
 
 
+  <!-- PEDIDO -->
+  <div class="wrap"><section id="order">
+    <div class="eyebrow" data-i="order_eye">Tu pedido</div>
+    <h2 data-i="order_h">Pedí la tuya</h2>
+    <form id="orderForm">
+      <div class="fgrid">
+        <div class="field full"><label data-i="o_name"></label><input id="o-name" type="text" maxlength="120" data-ph="o_name_ph"></div>
+        <div class="field"><label data-i="o_wa"></label><input id="o-wa" type="tel" maxlength="30" data-ph="o_wa_ph"></div>
+        <div class="field"><label data-i="o_ig"></label><input id="o-ig" type="text" maxlength="60" placeholder="@"></div>
+        <div class="field"><label data-i="o_size"></label>
+          <select id="o-size"><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div>
+        <div class="field"><label data-i="o_qty"></label>
+          <select id="o-qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+      </div>
+
+      <label class="flabel" data-i="o_amount"></label>
+      <div class="opts" id="o-amt">
+        <label><input type="radio" name="amt" value="base" checked><span data-i="ot_base"></span><b class="tb"></b></label>
+        <label><input type="radio" name="amt" value="sol"><span data-i="ot_sol"></span><b class="ts"></b></label>
+        <label><input type="radio" name="amt" value="pad"><span data-i="ot_pad"></span><b class="tp"></b></label>
+        <label><input type="radio" name="amt" value="otro"><span data-i="ot_otro"></span></label>
+      </div>
+      <div class="field" id="o-custom-wrap" hidden style="margin-top:10px">
+        <input id="o-custom" type="number" min="150000" step="5000" data-ph="o_custom_ph">
+      </div>
+
+      <label class="flabel" data-i="o_delivery"></label>
+      <div class="opts" id="o-del">
+        <label><input type="radio" name="del" value="pickup" checked><span data-i="od_pickup"></span></label>
+        <label><input type="radio" name="del" value="asuncion"><span data-i="od_asu"></span><b>+<span class="sa"></span></b></label>
+        <label><input type="radio" name="del" value="encomienda"><span data-i="od_enc"></span></label>
+      </div>
+      <div class="field" id="o-addr-wrap" hidden style="margin-top:10px">
+        <label data-i="o_addr"></label><input id="o-addr" type="text" maxlength="300" data-ph="o_addr_ph">
+      </div>
+
+      <div class="totalrow"><span class="flabel" style="margin:0" data-i="o_total"></span><b id="o-total">—</b></div>
+      <button class="btn" id="o-submit" type="submit" data-i="o_submit"></button>
+      <p class="note" id="o-err" hidden></p>
+    </form>
+
+    <div id="o-done" hidden>
+      <h3 data-i="o_done_h"></h3>
+      <div class="flabel" data-i="o_code_lbl" style="margin:14px 0 0"></div>
+      <div class="done-code" id="o-done-code"></div>
+      <div class="flabel" data-i="o_total" style="margin:10px 0 0"></div>
+      <div class="done-total" id="o-done-total"></div>
+      <p data-i="o_done_p"></p>
+      <a class="btn wa" id="o-wa-btn" href="#" target="_blank" rel="noopener" style="margin-top:16px" data-i="o_wa_btn"></a>
+    </div>
+  </section></div>
+
+
   <!-- PAGO -->
   <div class="wrap"><section>
     <div class="eyebrow" data-i="pay_eye">Pago</div>
@@ -374,26 +456,47 @@ const T = {
     back_quote:"Llevá el mensaje a todas partes.",
     prod_eye:"El producto", prod_h:"La camiseta", prod_front:"Frente", prod_back:"Espalda",
     how_eye:"Importante", how_h:"Cómo funciona",
-    s1t:"Hacé tu pedido", s1d:"Elegí talle, cantidad y tu monto en el formulario.",
+    s1t:"Hacé tu pedido", s1d:"Completá tu pedido acá mismo en la página — talle, cantidad y tu monto.",
     tier1_k:"Precio base", tier2_k:"Solidario ❤️ · +50.000 de donación extra", tier3_k:"Padrino 🐾 · +100.000 de donación extra",
-    tier_note:"Vos decidís cuánto vale: en el formulario también podés poner tu propio monto — desde 150.000 ₲, sin tope. Todo lo que supere el precio base es 100% donación extra para el refugio.",
-    s2t:"Pagá por transferencia", s2d:"Y enviás el comprobante para confirmar.",
+    tier_note:"Vos decidís cuánto vale: en el pedido también podés poner tu propio monto — desde 150.000 ₲, sin tope. Todo lo que supere el precio base es 100% donación extra para el refugio.",
+    s2t:"Pagá por transferencia", s2d:"Y mandás el comprobante por WhatsApp para confirmar.",
     s3t:"Esperamos el cierre", s3d:"Los pedidos se juntan hasta la fecha límite. Recién ahí se imprimen.",
     s4t:"Producción y envío", s4d:"Tiempo estimado de producción:",
     order_eye:"Tu pedido", order_h:"Pedí la tuya",
+    o_name:"Nombre y apellido", o_name_ph:"Tu nombre",
+    o_wa:"WhatsApp", o_wa_ph:"09xx xxx xxx",
+    o_ig:"Instagram (opcional)",
+    o_size:"Talle", o_qty:"Cantidad",
+    o_amount:"¿Cuánto querés aportar por camiseta?",
+    ot_base:"Precio base", ot_sol:"Solidario ❤️", ot_pad:"Padrino 🐾",
+    ot_otro:"Otro monto — desde 150.000 ₲, sin tope",
+    o_custom_ph:"Tu monto en guaraníes, ej. 300000",
+    o_delivery:"Entrega",
+    od_pickup:"Retiro personal — gratis",
+    od_asu:"Delivery Gran Asunción",
+    od_enc:"Encomienda al interior — pagás al retirar en la terminal",
+    o_addr:"Dirección / Terminal", o_addr_ph:"Ciudad, calle y referencia — o tu terminal de bus",
+    o_total:"Total a transferir", o_submit:"Enviar pedido",
+    o_err_req:"Completá nombre, WhatsApp y los campos de entrega, por favor.",
+    o_err_amount:"El monto mínimo es 150.000 ₲ por camiseta.",
+    o_err_net:"No se pudo enviar el pedido 😕 Probá de nuevo en un momento.",
+    o_done_h:"¡Pedido recibido! 💛",
+    o_code_lbl:"Tu código de pedido",
+    o_done_p:"Transferí el total a la cuenta de acá abajo y mandanos el comprobante por WhatsApp junto con tu código de pedido.",
+    o_wa_btn:"Enviar comprobante por WhatsApp",
     pay_eye:"Pago", pay_h:"Datos para transferir",
     pay_bank:"Banco", pay_holder:"Titular", pay_acc:"Cuenta",
-    pay_note:"Después de transferir, subí el comprobante en el formulario para confirmar tu pedido.",
+    pay_note:"Después de transferir, mandá el comprobante por WhatsApp con tu código de pedido para confirmar.",
     ship_eye:"Envío", ship_h:"Entrega",
     ship_pickup_k:"Retiro personal", ship_pickup_v:"Gratis",
     ship_asu_k:"Gran Asunción · delivery",
     ship_int_k:"Interior · encomienda", ship_int_v:"Pagás al retirar en la terminal",
-    ship_note:"Elegí tu forma de entrega en el formulario. El costo de envío corre por cuenta del comprador — así el 100% de la ganancia queda para el refugio.",
+    ship_note:"Elegí tu forma de entrega en el pedido. El costo de envío corre por cuenta del comprador — así el 100% de la ganancia queda para el refugio.",
     faq_eye:"Preguntas frecuentes", faq_h:"Preguntas y respuestas",
     f1q:"¿Cuándo recibo mi camiseta?",
     f1a:"Los pedidos se juntan hasta el cierre de la preventa. Recién después se imprimen todas juntas — tiempo estimado de producción: <b class='pt'></b>. Apenas la tuya esté lista, te avisamos por WhatsApp.",
     f2q:"¿Cómo pago?",
-    f2a:"Por transferencia bancaria o giro a los datos de arriba. Tu pedido queda confirmado cuando recibimos el comprobante (lo subís en el formulario).",
+    f2a:"Por transferencia bancaria o giro a los datos de arriba. Tu pedido queda confirmado cuando recibimos el comprobante por WhatsApp (botón al final del pedido).",
     f3q:"¿Cuánto cuesta el envío?",
     f3a:"Retiro personal: gratis. Delivery en Gran Asunción: <b class='sa'></b> — se transfiere junto con la camiseta. Interior: por encomienda, el costo lo pagás al retirar en la terminal.",
     f4q:"¿Por qué hay que esperar?",
@@ -401,7 +504,7 @@ const T = {
     f5q:"¿Cómo sé que la plata llega al refugio?",
     f5a:"Al cerrar la acción publicamos los números y grabamos la entrega de la donación en video, junto con el refugio.",
     f6q:"¿Puedo pagar más que el precio base?",
-    f6a:"¡Sí! Elegí una de las opciones solidarias o escribí tu propio monto en el formulario — sin tope. Cada guaraní por encima del precio base va completo al refugio.",
+    f6a:"¡Sí! Elegí una de las opciones solidarias o escribí tu propio monto en el pedido — sin tope. Cada guaraní por encima del precio base va completo al refugio.",
     trust_eye:"Transparencia", trust_h:"100% para los animales",
     trust_p:"Toda la ganancia va al refugio. Al cerrar la acción publicamos los números y el video de la entrega.",
     closed:"Pedido cerrado · ¡Gracias!",
@@ -419,26 +522,47 @@ const T = {
     back_quote:"Trag die Botschaft nach draußen.",
     prod_eye:"Das Produkt", prod_h:"Das Shirt", prod_front:"Vorne", prod_back:"Hinten",
     how_eye:"Wichtig", how_h:"So funktioniert's",
-    s1t:"Bestellung aufgeben", s1d:"Größe, Menge und deinen Betrag im Formular wählen.",
+    s1t:"Bestellung aufgeben", s1d:"Direkt hier auf der Seite — Größe, Menge und deinen Betrag wählen.",
     tier1_k:"Basispreis", tier2_k:"Solidario ❤️ · +50.000 ₲ Extra-Spende", tier3_k:"Padrino 🐾 · +100.000 ₲ Extra-Spende",
-    tier_note:"Du entscheidest, was es dir wert ist: Im Formular kannst du auch einen eigenen Betrag wählen — ab 150.000 ₲, ohne Deckel. Alles über dem Basispreis ist zu 100% Extra-Spende fürs Tierheim.",
-    s2t:"Per Überweisung zahlen", s2d:"Und den Beleg zur Bestätigung schicken.",
+    tier_note:"Du entscheidest, was es dir wert ist: In der Bestellung kannst du auch einen eigenen Betrag wählen — ab 150.000 ₲, ohne Deckel. Alles über dem Basispreis ist zu 100% Extra-Spende fürs Tierheim.",
+    s2t:"Per Überweisung zahlen", s2d:"Und den Beleg per WhatsApp zur Bestätigung schicken.",
     s3t:"Bestellfenster läuft", s3d:"Bestellungen werden bis zum Stichtag gesammelt. Erst dann wird gedruckt.",
     s4t:"Produktion & Versand", s4d:"Geschätzte Produktionszeit:",
     order_eye:"Deine Bestellung", order_h:"Jetzt bestellen",
+    o_name:"Vor- und Nachname", o_name_ph:"Dein Name",
+    o_wa:"WhatsApp", o_wa_ph:"09xx xxx xxx",
+    o_ig:"Instagram (optional)",
+    o_size:"Größe", o_qty:"Anzahl",
+    o_amount:"Wie viel möchtest du pro Shirt geben?",
+    ot_base:"Basispreis", ot_sol:"Solidario ❤️", ot_pad:"Padrino 🐾",
+    ot_otro:"Eigener Betrag — ab 150.000 ₲, ohne Deckel",
+    o_custom_ph:"Dein Betrag in Guaraníes, z. B. 300000",
+    o_delivery:"Lieferung",
+    od_pickup:"Selbstabholung — gratis",
+    od_asu:"Delivery Gran Asunción",
+    od_enc:"Encomienda ins Landesinnere — zahlst du am Terminal",
+    o_addr:"Adresse / Terminal", o_addr_ph:"Stadt, Straße und Referenz — oder dein Bus-Terminal",
+    o_total:"Zu überweisen", o_submit:"Bestellung absenden",
+    o_err_req:"Bitte Name, WhatsApp und die Lieferangaben ausfüllen.",
+    o_err_amount:"Der Mindestbetrag ist 150.000 ₲ pro Shirt.",
+    o_err_net:"Senden hat nicht geklappt 😕 Versuch es gleich nochmal.",
+    o_done_h:"Bestellung eingegangen! 💛",
+    o_code_lbl:"Dein Bestellcode",
+    o_done_p:"Überweise den Betrag auf das Konto hier unten und schick uns den Beleg per WhatsApp — zusammen mit deinem Bestellcode.",
+    o_wa_btn:"Beleg per WhatsApp schicken",
     pay_eye:"Zahlung", pay_h:"Daten für die Überweisung",
     pay_bank:"Bank", pay_holder:"Kontoinhaber", pay_acc:"Konto",
-    pay_note:"Nach der Überweisung lädst du den Beleg (Überweisungsbestätigung) direkt im Formular hoch, um deine Bestellung zu bestätigen.",
+    pay_note:"Nach der Überweisung schickst du den Beleg per WhatsApp mit deinem Bestellcode, um deine Bestellung zu bestätigen.",
     ship_eye:"Versand", ship_h:"Lieferung",
     ship_pickup_k:"Selbstabholung", ship_pickup_v:"Gratis",
     ship_asu_k:"Gran Asunción · Delivery",
     ship_int_k:"Landesinnere · Encomienda", ship_int_v:"Zahlst du bei Abholung am Terminal",
-    ship_note:"Wähle deine Lieferart im Formular. Der Versand geht zu Lasten des Käufers — so bleiben 100% des Gewinns für das Tierheim.",
+    ship_note:"Wähle deine Lieferart in der Bestellung. Der Versand geht zu Lasten des Käufers — so bleiben 100% des Gewinns für das Tierheim.",
     faq_eye:"Häufige Fragen", faq_h:"Fragen & Antworten",
     f1q:"Wann bekomme ich mein Shirt?",
     f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Erst danach wird alles gemeinsam gedruckt — geschätzte Produktionszeit: <b class='pt'></b>. Sobald dein Shirt fertig ist, melden wir uns per WhatsApp.",
     f2q:"Wie bezahle ich?",
-    f2a:"Per Überweisung oder Giro an die Daten oben. Deine Bestellung ist bestätigt, sobald der Zahlungsbeleg da ist (lädst du im Formular hoch).",
+    f2a:"Per Überweisung oder Giro an die Daten oben. Deine Bestellung ist bestätigt, sobald der Zahlungsbeleg per WhatsApp da ist (Button am Ende der Bestellung).",
     f3q:"Was kostet der Versand?",
     f3a:"Selbstabholung: gratis. Delivery in Gran Asunción: <b class='sa'></b> — wird zusammen mit dem Shirt überwiesen. Landesinnere: per Encomienda, die Gebühr zahlst du bei Abholung am Terminal.",
     f4q:"Warum muss ich warten?",
@@ -446,7 +570,7 @@ const T = {
     f5q:"Woher weiß ich, dass das Geld ankommt?",
     f5a:"Zum Abschluss veröffentlichen wir die Zahlen und filmen die Spendenübergabe gemeinsam mit dem Tierheim.",
     f6q:"Kann ich mehr als den Basispreis zahlen?",
-    f6a:"Ja! Wähle eine der Solidar-Stufen oder trag im Formular deinen eigenen Betrag ein — ohne Obergrenze. Jeder Guaraní über dem Basispreis geht komplett ans Tierheim.",
+    f6a:"Ja! Wähle eine der Solidar-Stufen oder trag in der Bestellung deinen eigenen Betrag ein — ohne Obergrenze. Jeder Guaraní über dem Basispreis geht komplett ans Tierheim.",
     trust_eye:"Transparenz", trust_h:"100% für die Tiere",
     trust_p:"Der gesamte Gewinn geht ans Tierheim. Zum Abschluss veröffentlichen wir die Zahlen und das Video der Übergabe.",
     closed:"Bestellung geschlossen · Danke!",
@@ -461,6 +585,10 @@ function applyLang(l){
   document.querySelectorAll("[data-i]").forEach(el=>{
     const k = el.getAttribute("data-i");
     if(t[k]!==undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll("[data-ph]").forEach(el=>{
+    const k = el.getAttribute("data-ph");
+    if(t[k]!==undefined) el.placeholder = t[k];
   });
   fillDynamic();
   document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active", b.dataset.lang===l));
@@ -486,7 +614,7 @@ function fillDynamic(){
   document.getElementById("b-ci").textContent = CONFIG.bank.ci;
   const ig=document.getElementById("ig"); ig.textContent=CONFIG.handle; ig.href=CONFIG.instagram;
   document.getElementById("foot-shelter").textContent = CONFIG.shelterName + " · " + CONFIG.city;
-  document.querySelectorAll(".js-order").forEach(a=>a.href=CONFIG.formUrl);
+  document.querySelectorAll(".js-order").forEach(a=>{ a.href="#order"; a.removeAttribute("target"); });
   const sig=document.getElementById("soon-ig"); if(sig) sig.href=CONFIG.instagram;
 }
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-lang]"); if(b) applyLang(b.dataset.lang); });
@@ -502,9 +630,97 @@ function tick(){
   document.getElementById("cd-m").textContent=m;
   if(end-now<=0){
     document.querySelectorAll(".js-order").forEach(b=>{ b.textContent=T[lang].closed; b.style.background="#9a9088"; b.removeAttribute("href"); });
+    const s=document.getElementById("o-submit");
+    if(s){ s.disabled=true; s.textContent=T[lang].closed; s.style.background="#9a9088"; }
   }
 }
-applyLang("de"); tick(); setInterval(tick,30000);
+/* ===== Bestellung → Firestore (Projekt paraguay-app-8beb3, Collection mborayhu_orders) ===== */
+const FB = {
+  projectId: "paraguay-app-8beb3",
+  apiKey: "AIzaSyC_nxQL9Jo0EPUCtyI8QvnnRVKRBPbREKU",   // öffentlicher Firebase-Web-Key (gleicher wie Buscar)
+  collection: "mborayhu_orders"
+};
+function gsNum(s){ return parseInt(String(s).replace(/[^\d]/g,""),10)||0; }
+function gsFmt(n){ return n.toLocaleString("de-DE")+" ₲"; }
+function _amtValue(){
+  const v = document.querySelector('input[name="amt"]:checked').value;
+  if(v==="base") return gsNum(CONFIG.price);
+  if(v==="sol")  return gsNum(CONFIG.tierSolidario);
+  if(v==="pad")  return gsNum(CONFIG.tierPadrino);
+  return gsNum(document.getElementById("o-custom").value);
+}
+function _delValue(){ return document.querySelector('input[name="del"]:checked').value; }
+function updateOrderUI(){
+  const amtSel = document.querySelector('input[name="amt"]:checked').value;
+  document.getElementById("o-custom-wrap").hidden = (amtSel!=="otro");
+  const del = _delValue();
+  document.getElementById("o-addr-wrap").hidden = (del==="pickup");
+  const qty = parseInt(document.getElementById("o-qty").value,10)||1;
+  const amt = _amtValue();
+  const ship = (del==="asuncion") ? gsNum(CONFIG.shippingAsuncion) : 0;
+  const total = (amt>0) ? qty*amt+ship : 0;
+  document.getElementById("o-total").textContent = total>0 ? gsFmt(total) : "—";
+  return {qty, amt, ship, total, del};
+}
+function _oErr(key){
+  const e = document.getElementById("o-err");
+  e.textContent = T[lang][key]; e.hidden = false;
+  e.scrollIntoView({block:"nearest", behavior:"smooth"});
+}
+async function submitOrder(ev){
+  ev.preventDefault();
+  const e = document.getElementById("o-err"); e.hidden = true;
+  const o = updateOrderUI();
+  const name = document.getElementById("o-name").value.trim();
+  const wa   = document.getElementById("o-wa").value.trim();
+  const ig   = document.getElementById("o-ig").value.trim();
+  const size = document.getElementById("o-size").value;
+  const addr = document.getElementById("o-addr").value.trim();
+  if(name.length<2 || wa.replace(/[^\d]/g,"").length<6 || (o.del!=="pickup" && addr.length<3)){ _oErr("o_err_req"); return false; }
+  if(o.amt < gsNum(CONFIG.price)){ _oErr("o_err_amount"); return false; }
+  const code = "MB-" + Date.now().toString(36).toUpperCase().slice(-6);
+  const btn = document.getElementById("o-submit");
+  btn.disabled = true; btn.style.opacity=".7";
+  const doc = { fields:{
+    code:       {stringValue: code},
+    name:       {stringValue: name},
+    whatsapp:   {stringValue: wa},
+    instagram:  {stringValue: ig},
+    size:       {stringValue: size},
+    qty:        {integerValue: String(o.qty)},
+    amount:     {integerValue: String(o.amt)},
+    delivery:   {stringValue: o.del},
+    address:    {stringValue: o.del==="pickup" ? "" : addr},
+    total:      {integerValue: String(o.total)},
+    lang:       {stringValue: lang},
+    status:     {stringValue: "nuevo"},
+    created_at: {stringValue: new Date().toISOString()}
+  }};
+  try{
+    const r = await fetch("https://firestore.googleapis.com/v1/projects/"+FB.projectId+"/databases/(default)/documents/"+FB.collection+"?key="+FB.apiKey,
+      { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(doc) });
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    document.getElementById("orderForm").hidden = true;
+    const done = document.getElementById("o-done");
+    done.hidden = false;
+    document.getElementById("o-done-code").textContent = code;
+    document.getElementById("o-done-total").textContent = gsFmt(o.total);
+    const msg = (lang==="es")
+      ? "¡Hola! Soy "+name+" 🐾 Mi pedido "+code+": "+o.qty+"× talle "+size+", total "+gsFmt(o.total)+". Acá va el comprobante:"
+      : "Hallo! Ich bin "+name+" 🐾 Meine Bestellung "+code+": "+o.qty+"× Größe "+size+", gesamt "+gsFmt(o.total)+". Hier der Beleg:";
+    document.getElementById("o-wa-btn").href = "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg);
+    done.scrollIntoView({block:"center", behavior:"smooth"});
+  }catch(err){
+    btn.disabled = false; btn.style.opacity="";
+    _oErr("o_err_net");
+  }
+  return false;
+}
+document.getElementById("orderForm").addEventListener("submit", submitOrder);
+["o-qty","o-custom"].forEach(id=>document.getElementById(id).addEventListener("input", updateOrderUI));
+document.querySelectorAll('input[name="amt"],input[name="del"]').forEach(r=>r.addEventListener("change", updateOrderUI));
+
+applyLang("de"); tick(); setInterval(tick,30000); updateOrderUI();
 var isPreview=/(?:[?&#])preview\b/i.test(location.search + location.hash);
 if(CONFIG.comingSoon && !isPreview){ document.getElementById("soon").hidden=false; document.body.style.overflow="hidden"; }
 </script>
