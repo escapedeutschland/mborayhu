@@ -634,10 +634,10 @@ function tick(){
     if(s){ s.disabled=true; s.textContent=T[lang].closed; s.style.background="#9a9088"; }
   }
 }
-/* ===== Bestellung → Firestore (Projekt paraguay-app-8beb3, Collection mborayhu_orders) ===== */
+/* ===== Bestellung → Firestore (EIGENES Projekt "mborayhu", getrennt von Buscar) ===== */
 const FB = {
-  projectId: "paraguay-app-8beb3",
-  apiKey: "AIzaSyC_nxQL9Jo0EPUCtyI8QvnnRVKRBPbREKU",   // öffentlicher Firebase-Web-Key (gleicher wie Buscar)
+  projectId: "mborayhu",
+  apiKey: "AIzaSyAokVw32txLasPaD15ytZ7ZYgk5nTano-I",   // öffentlicher Firebase-Web-Key des mborayhu-Projekts
   collection: "mborayhu_orders"
 };
 function gsNum(s){ return parseInt(String(s).replace(/[^\d]/g,""),10)||0; }
