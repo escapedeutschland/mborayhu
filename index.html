@@ -149,6 +149,14 @@
   .imgquote .oq{position:absolute; left:0; right:0; bottom:0; padding:22px; color:#fff;
     font-family:'Fraunces',serif; font-weight:600; font-size:1.25rem; line-height:1.3; text-shadow:0 1px 18px rgba(0,0,0,.3)}
 
+  /* FAQ */
+  .faq details{border:1px solid var(--line); background:var(--card); border-radius:14px; padding:0 18px; margin-bottom:10px}
+  .faq summary{cursor:pointer; font-weight:600; color:var(--ink); padding:14px 0; list-style:none; display:flex; align-items:baseline; justify-content:space-between; gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+"; font-family:'Fraunces'; font-size:1.2rem; color:var(--accent); flex:0 0 auto; line-height:1}
+  .faq details[open] summary::after{content:"–"}
+  .faq .a{padding:0 0 16px; font-size:.93rem; color:var(--ink-soft); line-height:1.6}
+
   /* Paw motif divider */
   .pawrule{display:flex; align-items:center; justify-content:center; gap:16px; padding:8px 0}
   .pawrule::before,.pawrule::after{content:""; height:1px; width:46px; background:var(--line)}
@@ -180,6 +188,8 @@ const CONFIG = {
   production:  { es:"aprox. 2–3 semanas", de:"ca. 2–3 Wochen" },
 
   formUrl:     "https://forms.gle/DEIN-FORMULAR",
+
+  shippingAsuncion: "25.000 ₲",                // Versandpauschale Gran Asunción — ANPASSEN nach Kurier-Angebot!
 
   bank: {
     bankName: "[Banco / Financiera]",
@@ -291,6 +301,31 @@ const CONFIG = {
     </div>
     <p class="note" data-i="pay_note"></p>
   </section></div>
+
+
+  <!-- ENVIO -->
+  <div class="wrap"><section>
+    <div class="eyebrow" data-i="ship_eye">Envío</div>
+    <h2 data-i="ship_h">Entrega</h2>
+    <div class="paybox">
+      <div class="payrow"><span class="k" data-i="ship_pickup_k"></span><span class="v" data-i="ship_pickup_v"></span></div>
+      <div class="payrow"><span class="k" data-i="ship_asu_k"></span><span class="v sa"></span></div>
+      <div class="payrow"><span class="k" data-i="ship_int_k"></span><span class="v" data-i="ship_int_v"></span></div>
+    </div>
+    <p class="note" data-i="ship_note"></p>
+  </section></div>
+
+
+  <!-- FAQ -->
+  <div class="wrap"><section class="faq">
+    <div class="eyebrow" data-i="faq_eye"></div>
+    <h2 data-i="faq_h"></h2>
+    <details><summary data-i="f1q"></summary><div class="a" data-i="f1a"></div></details>
+    <details><summary data-i="f2q"></summary><div class="a" data-i="f2a"></div></details>
+    <details><summary data-i="f3q"></summary><div class="a" data-i="f3a"></div></details>
+    <details><summary data-i="f4q"></summary><div class="a" data-i="f4a"></div></details>
+    <details><summary data-i="f5q"></summary><div class="a" data-i="f5a"></div></details>
+  </section></div>
 </main>
 
 <!-- TRUST -->
@@ -338,6 +373,22 @@ const T = {
     pay_eye:"Pago", pay_h:"Datos para transferir",
     pay_bank:"Banco", pay_holder:"Titular", pay_acc:"Cuenta",
     pay_note:"Después de transferir, subí el comprobante en el formulario para confirmar tu pedido.",
+    ship_eye:"Envío", ship_h:"Entrega",
+    ship_pickup_k:"Retiro personal", ship_pickup_v:"Gratis",
+    ship_asu_k:"Gran Asunción · delivery",
+    ship_int_k:"Interior · encomienda", ship_int_v:"Pagás al retirar en la terminal",
+    ship_note:"Elegí tu forma de entrega en el formulario. El costo de envío corre por cuenta del comprador — así el 100% de la ganancia queda para el refugio.",
+    faq_eye:"Preguntas frecuentes", faq_h:"Preguntas y respuestas",
+    f1q:"¿Cuándo recibo mi camiseta?",
+    f1a:"Los pedidos se juntan hasta el cierre de la preventa. Recién después se imprimen todas juntas — tiempo estimado de producción: <b class='pt'></b>. Apenas la tuya esté lista, te avisamos por WhatsApp.",
+    f2q:"¿Cómo pago?",
+    f2a:"Por transferencia bancaria o giro a los datos de arriba. Tu pedido queda confirmado cuando recibimos el comprobante (lo subís en el formulario).",
+    f3q:"¿Cuánto cuesta el envío?",
+    f3a:"Retiro personal: gratis. Delivery en Gran Asunción: <b class='sa'></b> — se transfiere junto con la camiseta. Interior: por encomienda, el costo lo pagás al retirar en la terminal.",
+    f4q:"¿Por qué hay que esperar?",
+    f4a:"Porque imprimimos exactamente la cantidad pedida: sin stock, sin desperdicio. Así cada guaraní de ganancia va al refugio y no a camisetas sobrantes.",
+    f5q:"¿Cómo sé que la plata llega al refugio?",
+    f5a:"Al cerrar la acción publicamos los números y grabamos la entrega de la donación en video, junto con el refugio.",
     trust_eye:"Transparencia", trust_h:"100% para los animales",
     trust_p:"Toda la ganancia va al refugio. Al cerrar la acción publicamos los números y el video de la entrega.",
     closed:"Pedido cerrado · ¡Gracias!",
@@ -363,6 +414,22 @@ const T = {
     pay_eye:"Zahlung", pay_h:"Daten für die Überweisung",
     pay_bank:"Bank", pay_holder:"Kontoinhaber", pay_acc:"Konto",
     pay_note:"Nach der Überweisung lädst du den Beleg (Überweisungsbestätigung) direkt im Formular hoch, um deine Bestellung zu bestätigen.",
+    ship_eye:"Versand", ship_h:"Lieferung",
+    ship_pickup_k:"Selbstabholung", ship_pickup_v:"Gratis",
+    ship_asu_k:"Gran Asunción · Delivery",
+    ship_int_k:"Landesinnere · Encomienda", ship_int_v:"Zahlst du bei Abholung am Terminal",
+    ship_note:"Wähle deine Lieferart im Formular. Der Versand geht zu Lasten des Käufers — so bleiben 100% des Gewinns für das Tierheim.",
+    faq_eye:"Häufige Fragen", faq_h:"Fragen & Antworten",
+    f1q:"Wann bekomme ich mein Shirt?",
+    f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Erst danach wird alles gemeinsam gedruckt — geschätzte Produktionszeit: <b class='pt'></b>. Sobald dein Shirt fertig ist, melden wir uns per WhatsApp.",
+    f2q:"Wie bezahle ich?",
+    f2a:"Per Überweisung oder Giro an die Daten oben. Deine Bestellung ist bestätigt, sobald der Zahlungsbeleg da ist (lädst du im Formular hoch).",
+    f3q:"Was kostet der Versand?",
+    f3a:"Selbstabholung: gratis. Delivery in Gran Asunción: <b class='sa'></b> — wird zusammen mit dem Shirt überwiesen. Landesinnere: per Encomienda, die Gebühr zahlst du bei Abholung am Terminal.",
+    f4q:"Warum muss ich warten?",
+    f4a:"Weil wir genau die bestellte Menge drucken: kein Lager, keine Verschwendung. So geht jeder Guaraní Gewinn ans Tierheim — nicht in übrige Shirts.",
+    f5q:"Woher weiß ich, dass das Geld ankommt?",
+    f5a:"Zum Abschluss veröffentlichen wir die Zahlen und filmen die Spendenübergabe gemeinsam mit dem Tierheim.",
     trust_eye:"Transparenz", trust_h:"100% für die Tiere",
     trust_p:"Der gesamte Gewinn geht ans Tierheim. Zum Abschluss veröffentlichen wir die Zahlen und das Video der Übergabe.",
     closed:"Bestellung geschlossen · Danke!",
@@ -389,6 +456,8 @@ function fillDynamic(){
   document.getElementById("f-sizes").textContent = CONFIG.sizes;
   document.getElementById("f-material").textContent = CONFIG.material;
   document.getElementById("prodtime").textContent = CONFIG.production[lang];
+  document.querySelectorAll(".pt").forEach(e=>e.textContent=CONFIG.production[lang]);
+  document.querySelectorAll(".sa").forEach(e=>e.textContent=CONFIG.shippingAsuncion);
   document.getElementById("b-bank").textContent = CONFIG.bank.bankName;
   document.getElementById("b-holder").textContent = CONFIG.bank.holder;
   document.getElementById("b-acc").textContent = CONFIG.bank.account;
