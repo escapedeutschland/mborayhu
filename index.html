@@ -179,7 +179,9 @@ const CONFIG = {
   shelterName: "[Name des Tierheims]",
   city:        "Asunción, Paraguay",
 
-  price:       "150.000 ₲",
+  price:         "150.000 ₲",               // Basispreis (Minimum)
+  tierSolidario: "200.000 ₲",               // Stufe 2 — bei Änderung auch Texte tier2_k/tier3_k in T anpassen!
+  tierPadrino:   "250.000 ₲",               // Stufe 3
   color:       "Naturweiß / Beige",
   sizes:       "S · M · L · XL · XXL",
   material:    "100% Baumwolle",
@@ -272,6 +274,12 @@ const CONFIG = {
     </div>
     <div class="pricerow"><span class="price" id="price"></span><span class="price-note" data-i="price_note">+ envío</span></div>
     <div class="chips"><span id="f-color"></span><span id="f-sizes"></span><span id="f-material"></span></div>
+    <div class="paybox" style="margin-top:22px">
+      <div class="payrow"><span class="k" data-i="tier1_k"></span><span class="v tb" style="white-space:nowrap"></span></div>
+      <div class="payrow"><span class="k" data-i="tier2_k"></span><span class="v ts" style="white-space:nowrap"></span></div>
+      <div class="payrow"><span class="k" data-i="tier3_k"></span><span class="v tp" style="white-space:nowrap"></span></div>
+    </div>
+    <p class="note" data-i="tier_note"></p>
   </section></div>
 
 
@@ -325,6 +333,7 @@ const CONFIG = {
     <details><summary data-i="f3q"></summary><div class="a" data-i="f3a"></div></details>
     <details><summary data-i="f4q"></summary><div class="a" data-i="f4a"></div></details>
     <details><summary data-i="f5q"></summary><div class="a" data-i="f5a"></div></details>
+    <details><summary data-i="f6q"></summary><div class="a" data-i="f6a"></div></details>
   </section></div>
 </main>
 
@@ -365,7 +374,9 @@ const T = {
     back_quote:"Llevá el mensaje a todas partes.",
     prod_eye:"El producto", prod_h:"La camiseta", prod_front:"Frente", prod_back:"Espalda",
     how_eye:"Importante", how_h:"Cómo funciona",
-    s1t:"Hacé tu pedido", s1d:"Elegí talle y cantidad en el formulario.",
+    s1t:"Hacé tu pedido", s1d:"Elegí talle, cantidad y tu monto en el formulario.",
+    tier1_k:"Precio base", tier2_k:"Solidario ❤️ · +50.000 de donación extra", tier3_k:"Padrino 🐾 · +100.000 de donación extra",
+    tier_note:"Vos decidís cuánto vale: en el formulario también podés poner tu propio monto — desde 150.000 ₲, sin tope. Todo lo que supere el precio base es 100% donación extra para el refugio.",
     s2t:"Pagá por transferencia", s2d:"Y enviás el comprobante para confirmar.",
     s3t:"Esperamos el cierre", s3d:"Los pedidos se juntan hasta la fecha límite. Recién ahí se imprimen.",
     s4t:"Producción y envío", s4d:"Tiempo estimado de producción:",
@@ -389,6 +400,8 @@ const T = {
     f4a:"Porque imprimimos exactamente la cantidad pedida: sin stock, sin desperdicio. Así cada guaraní de ganancia va al refugio y no a camisetas sobrantes.",
     f5q:"¿Cómo sé que la plata llega al refugio?",
     f5a:"Al cerrar la acción publicamos los números y grabamos la entrega de la donación en video, junto con el refugio.",
+    f6q:"¿Puedo pagar más que el precio base?",
+    f6a:"¡Sí! Elegí una de las opciones solidarias o escribí tu propio monto en el formulario — sin tope. Cada guaraní por encima del precio base va completo al refugio.",
     trust_eye:"Transparencia", trust_h:"100% para los animales",
     trust_p:"Toda la ganancia va al refugio. Al cerrar la acción publicamos los números y el video de la entrega.",
     closed:"Pedido cerrado · ¡Gracias!",
@@ -406,7 +419,9 @@ const T = {
     back_quote:"Trag die Botschaft nach draußen.",
     prod_eye:"Das Produkt", prod_h:"Das Shirt", prod_front:"Vorne", prod_back:"Hinten",
     how_eye:"Wichtig", how_h:"So funktioniert's",
-    s1t:"Bestellung aufgeben", s1d:"Größe und Menge im Formular wählen.",
+    s1t:"Bestellung aufgeben", s1d:"Größe, Menge und deinen Betrag im Formular wählen.",
+    tier1_k:"Basispreis", tier2_k:"Solidario ❤️ · +50.000 ₲ Extra-Spende", tier3_k:"Padrino 🐾 · +100.000 ₲ Extra-Spende",
+    tier_note:"Du entscheidest, was es dir wert ist: Im Formular kannst du auch einen eigenen Betrag wählen — ab 150.000 ₲, ohne Deckel. Alles über dem Basispreis ist zu 100% Extra-Spende fürs Tierheim.",
     s2t:"Per Überweisung zahlen", s2d:"Und den Beleg zur Bestätigung schicken.",
     s3t:"Bestellfenster läuft", s3d:"Bestellungen werden bis zum Stichtag gesammelt. Erst dann wird gedruckt.",
     s4t:"Produktion & Versand", s4d:"Geschätzte Produktionszeit:",
@@ -430,6 +445,8 @@ const T = {
     f4a:"Weil wir genau die bestellte Menge drucken: kein Lager, keine Verschwendung. So geht jeder Guaraní Gewinn ans Tierheim — nicht in übrige Shirts.",
     f5q:"Woher weiß ich, dass das Geld ankommt?",
     f5a:"Zum Abschluss veröffentlichen wir die Zahlen und filmen die Spendenübergabe gemeinsam mit dem Tierheim.",
+    f6q:"Kann ich mehr als den Basispreis zahlen?",
+    f6a:"Ja! Wähle eine der Solidar-Stufen oder trag im Formular deinen eigenen Betrag ein — ohne Obergrenze. Jeder Guaraní über dem Basispreis geht komplett ans Tierheim.",
     trust_eye:"Transparenz", trust_h:"100% für die Tiere",
     trust_p:"Der gesamte Gewinn geht ans Tierheim. Zum Abschluss veröffentlichen wir die Zahlen und das Video der Übergabe.",
     closed:"Bestellung geschlossen · Danke!",
@@ -450,8 +467,12 @@ function applyLang(l){
 }
 function fillDynamic(){
   document.querySelectorAll(".sh").forEach(e=>e.textContent=CONFIG.shelterName);
-  document.getElementById("price").textContent = CONFIG.price;
-  document.getElementById("bar-price").textContent = CONFIG.price;
+  const from = (lang === "es" ? "desde " : "ab ");
+  document.getElementById("price").textContent = from + CONFIG.price;
+  document.getElementById("bar-price").textContent = from + CONFIG.price;
+  document.querySelectorAll(".tb").forEach(e=>e.textContent=CONFIG.price);
+  document.querySelectorAll(".ts").forEach(e=>e.textContent=CONFIG.tierSolidario);
+  document.querySelectorAll(".tp").forEach(e=>e.textContent=CONFIG.tierPadrino);
   document.getElementById("f-color").textContent = CONFIG.color;
   document.getElementById("f-sizes").textContent = CONFIG.sizes;
   document.getElementById("f-material").textContent = CONFIG.material;
