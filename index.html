@@ -303,12 +303,6 @@ const CONFIG = {
     </div>
     <div class="pricerow"><span class="price" id="price"></span><span class="price-note" data-i="price_note">+ envío</span></div>
     <div class="chips"><span id="f-color"></span><span id="f-sizes"></span><span id="f-material"></span></div>
-    <div class="paybox" style="margin-top:22px">
-      <div class="payrow"><span class="k" data-i="tier1_k"></span><span class="v tb" style="white-space:nowrap"></span></div>
-      <div class="payrow"><span class="k" data-i="tier2_k"></span><span class="v ts" style="white-space:nowrap"></span></div>
-      <div class="payrow"><span class="k" data-i="tier3_k"></span><span class="v tp" style="white-space:nowrap"></span></div>
-    </div>
-    <p class="note" data-i="tier_note"></p>
   </section></div>
 
 
@@ -350,6 +344,7 @@ const CONFIG = {
       <div class="field" id="o-custom-wrap" hidden style="margin-top:10px">
         <input id="o-custom" type="number" min="150000" step="5000" data-ph="o_custom_ph">
       </div>
+      <p class="note" data-i="tier_note" style="margin-top:12px"></p>
 
       <label class="flabel" data-i="o_delivery"></label>
       <div class="opts" id="o-del">
@@ -390,19 +385,6 @@ const CONFIG = {
       <div class="payrow"><span class="k">C.I.</span><span class="v" id="b-ci"></span></div>
     </div>
     <p class="note" data-i="pay_note"></p>
-  </section></div>
-
-
-  <!-- ENVIO -->
-  <div class="wrap"><section>
-    <div class="eyebrow" data-i="ship_eye">Envío</div>
-    <h2 data-i="ship_h">Entrega</h2>
-    <div class="paybox">
-      <div class="payrow"><span class="k" data-i="ship_pickup_k"></span><span class="v" data-i="ship_pickup_v"></span></div>
-      <div class="payrow"><span class="k" data-i="ship_asu_k"></span><span class="v sa"></span></div>
-      <div class="payrow"><span class="k" data-i="ship_int_k"></span><span class="v" data-i="ship_int_v"></span></div>
-    </div>
-    <p class="note" data-i="ship_note"></p>
   </section></div>
 
 
@@ -457,8 +439,7 @@ const T = {
     prod_eye:"El producto", prod_h:"La camiseta", prod_front:"Frente", prod_back:"Espalda",
     how_eye:"Importante", how_h:"Cómo funciona",
     s1t:"Hacé tu pedido", s1d:"Completá tu pedido acá mismo en la página — talle, cantidad y tu monto.",
-    tier1_k:"Precio base", tier2_k:"Solidario ❤️ · +50.000 de donación extra", tier3_k:"Padrino 🐾 · +100.000 de donación extra",
-    tier_note:"Vos decidís cuánto vale: en el pedido también podés poner tu propio monto — desde 150.000 ₲, sin tope. Todo lo que supere el precio base es 100% donación extra para el refugio.",
+    tier_note:"Todo lo que supere el precio base es 100% donación extra para el refugio.",
     s2t:"Pagá por transferencia", s2d:"Y mandás el comprobante por WhatsApp para confirmar.",
     s3t:"Esperamos el cierre", s3d:"Los pedidos se juntan hasta la fecha límite. Recién ahí se imprimen.",
     s4t:"Producción y envío", s4d:"Tiempo estimado de producción:",
@@ -487,11 +468,6 @@ const T = {
     pay_eye:"Pago", pay_h:"Datos para transferir",
     pay_bank:"Banco", pay_holder:"Titular", pay_acc:"Cuenta",
     pay_note:"Después de transferir, mandá el comprobante por WhatsApp con tu código de pedido para confirmar.",
-    ship_eye:"Envío", ship_h:"Entrega",
-    ship_pickup_k:"Retiro personal", ship_pickup_v:"Gratis",
-    ship_asu_k:"Gran Asunción · delivery",
-    ship_int_k:"Interior · encomienda", ship_int_v:"Pagás al retirar en la terminal",
-    ship_note:"Elegí tu forma de entrega en el pedido. El costo de envío corre por cuenta del comprador — así el 100% de la ganancia queda para el refugio.",
     faq_eye:"Preguntas frecuentes", faq_h:"Preguntas y respuestas",
     f1q:"¿Cuándo recibo mi camiseta?",
     f1a:"Los pedidos se juntan hasta el cierre de la preventa. Recién después se imprimen todas juntas — tiempo estimado de producción: <b class='pt'></b>. Apenas la tuya esté lista, te avisamos por WhatsApp.",
@@ -523,8 +499,7 @@ const T = {
     prod_eye:"Das Produkt", prod_h:"Das Shirt", prod_front:"Vorne", prod_back:"Hinten",
     how_eye:"Wichtig", how_h:"So funktioniert's",
     s1t:"Bestellung aufgeben", s1d:"Direkt hier auf der Seite — Größe, Menge und deinen Betrag wählen.",
-    tier1_k:"Basispreis", tier2_k:"Solidario ❤️ · +50.000 ₲ Extra-Spende", tier3_k:"Padrino 🐾 · +100.000 ₲ Extra-Spende",
-    tier_note:"Du entscheidest, was es dir wert ist: In der Bestellung kannst du auch einen eigenen Betrag wählen — ab 150.000 ₲, ohne Deckel. Alles über dem Basispreis ist zu 100% Extra-Spende fürs Tierheim.",
+    tier_note:"Alles über dem Basispreis ist zu 100% Extra-Spende fürs Tierheim.",
     s2t:"Per Überweisung zahlen", s2d:"Und den Beleg per WhatsApp zur Bestätigung schicken.",
     s3t:"Bestellfenster läuft", s3d:"Bestellungen werden bis zum Stichtag gesammelt. Erst dann wird gedruckt.",
     s4t:"Produktion & Versand", s4d:"Geschätzte Produktionszeit:",
@@ -553,11 +528,6 @@ const T = {
     pay_eye:"Zahlung", pay_h:"Daten für die Überweisung",
     pay_bank:"Bank", pay_holder:"Kontoinhaber", pay_acc:"Konto",
     pay_note:"Nach der Überweisung schickst du den Beleg per WhatsApp mit deinem Bestellcode, um deine Bestellung zu bestätigen.",
-    ship_eye:"Versand", ship_h:"Lieferung",
-    ship_pickup_k:"Selbstabholung", ship_pickup_v:"Gratis",
-    ship_asu_k:"Gran Asunción · Delivery",
-    ship_int_k:"Landesinnere · Encomienda", ship_int_v:"Zahlst du bei Abholung am Terminal",
-    ship_note:"Wähle deine Lieferart in der Bestellung. Der Versand geht zu Lasten des Käufers — so bleiben 100% des Gewinns für das Tierheim.",
     faq_eye:"Häufige Fragen", faq_h:"Fragen & Antworten",
     f1q:"Wann bekomme ich mein Shirt?",
     f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Erst danach wird alles gemeinsam gedruckt — geschätzte Produktionszeit: <b class='pt'></b>. Sobald dein Shirt fertig ist, melden wir uns per WhatsApp.",
