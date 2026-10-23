@@ -171,7 +171,7 @@
   .sizegrid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px}
   .sz{display:flex; flex-direction:column; gap:5px; align-items:center}
   .sz span{font-size:.78rem; font-weight:600; color:var(--ink-soft)}
-  .sz select{text-align:center; padding:11px 6px !important}
+  .sz select{text-align:center; text-align-last:center; padding:11px 24px 11px 8px !important; background-position:right 8px center !important}
   .totalrow{display:flex; justify-content:space-between; align-items:baseline; border-top:1.5px solid var(--ink); margin-top:22px; padding:14px 2px 16px}
   .totalrow b{font-family:'Fraunces'; font-size:1.5rem}
   #o-err{border-left-color:#B3482F; color:#B3482F}
@@ -354,9 +354,10 @@ const CONFIG = {
       </div>
       <p class="note" data-i="tier_note" style="margin-top:12px"></p>
 
-      <label class="flabel" data-i="o_addr"></label>
-      <div class="field">
-        <input id="o-addr" type="text" maxlength="300" data-ph="o_addr_ph">
+      <label class="flabel" data-i="o_ship_h"></label>
+      <div class="fgrid">
+        <div class="field"><label data-i="o_city"></label><input id="o-addr" type="text" maxlength="300" data-ph="o_city_ph"></div>
+        <div class="field"><label data-i="o_ci"></label><input id="o-ci" type="text" maxlength="20" data-ph="o_ci_ph"></div>
       </div>
       <p class="note" data-i="o_ship_note" style="margin-top:12px"></p>
 
@@ -456,10 +457,12 @@ const T = {
     ot_base:"Precio base", ot_sol:"Solidario ❤️", ot_pad:"Padrino 🐾",
     ot_otro:"Otro monto — desde 100.000 ₲, sin tope",
     o_custom_ph:"Tu monto en guaraníes, ej. 250000",
-    o_addr:"¿En qué ciudad retirás tu pedido?", o_addr_ph:"Tu ciudad / sucursal de TSI más cercana",
-    o_ship_note:"El envío va por TSI desde Caacupé a todo el país. Lo pagás al retirar tu paquete en tu sucursal TSI (tarifa según destino).",
+    o_ship_h:"Entrega por TSI",
+    o_city:"¿En qué ciudad retirás?", o_city_ph:"Tu ciudad / sucursal de TSI más cercana",
+    o_ci:"C.I. del que retira", o_ci_ph:"Para el envío por TSI",
+    o_ship_note:"El envío va por TSI desde Caacupé a todo el país — lo pagás al retirar en tu sucursal (tarifa según destino). Cuando tu paquete salga, te mandamos el número de ticket por WhatsApp para retirarlo con tu C.I.",
     o_total:"Total a transferir", o_submit:"Enviar pedido",
-    o_err_req:"Completá nombre, WhatsApp y tu ciudad, por favor.",
+    o_err_req:"Completá nombre, WhatsApp, tu ciudad y el C.I., por favor.",
     o_err_qty_min:"Elegí al menos una camiseta.",
     o_err_qty_max:"Máximo 10 camisetas por pedido — para más, escribinos por WhatsApp.",
     o_err_amount:"El monto mínimo es 100.000 ₲ por camiseta.",
@@ -473,11 +476,11 @@ const T = {
     pay_note:"Después de transferir, mandá el comprobante por WhatsApp con tu código de pedido para confirmar. ¿Tu banco te pide el documento del titular? Escribinos por WhatsApp y te lo pasamos al instante.",
     faq_eye:"Preguntas frecuentes", faq_h:"Preguntas y respuestas",
     f1q:"¿Cuándo recibo mi camiseta?",
-    f1a:"Los pedidos se juntan hasta el cierre de la preventa. Después se imprimen todos juntos y tu pedido sale por TSI — estimado <b class='pt'></b> después del cierre. Todas las novedades las vas a ver en nuestro Instagram @escape.deutschland.",
+    f1a:"Los pedidos se juntan hasta el cierre de la preventa. Después se imprimen todos juntos y tu pedido sale por TSI — estimado <b class='pt'></b> después del cierre. Te mandamos el número de ticket por WhatsApp, y todas las novedades las vas a ver en nuestro Instagram @escape.deutschland.",
     f2q:"¿Cómo pago?",
     f2a:"Por transferencia bancaria o giro a los datos de arriba. Tu pedido queda confirmado cuando recibimos el comprobante por WhatsApp (botón al final del pedido).",
     f3q:"¿Cuánto cuesta el envío?",
-    f3a:"Enviamos por TSI desde Caacupé a todo el país. El costo lo pagás vos al retirar tu paquete en tu sucursal TSI — la tarifa depende del destino. No tenés que transferir nada extra.",
+    f3a:"Enviamos por TSI desde Caacupé a todo el país. El costo lo pagás vos al retirar tu paquete en tu sucursal TSI — la tarifa depende del destino. No tenés que transferir nada extra. Para retirar necesitás tu C.I. y el número de ticket que te mandamos por WhatsApp.",
     f4q:"¿Por qué hay que esperar?",
     f4a:"Porque las remeras se imprimen recién después del cierre de la preventa — así sabemos cuántas y en qué talles producir. La producción tarda aprox. una semana y después tu pedido sale por TSI.",
     f5q:"¿Cómo sé que la plata llega al refugio?",
@@ -515,10 +518,12 @@ const T = {
     ot_base:"Basispreis", ot_sol:"Solidario ❤️", ot_pad:"Padrino 🐾",
     ot_otro:"Eigener Betrag — ab 100.000 ₲, ohne Deckel",
     o_custom_ph:"Dein Betrag in Guaraníes, z. B. 250000",
-    o_addr:"In welcher Stadt holst du dein Paket ab?", o_addr_ph:"Deine Stadt / nächste TSI-Filiale",
-    o_ship_note:"Der Versand läuft per TSI ab Caacupé ins ganze Land. Du zahlst ihn bei Abholung deines Pakets in deiner TSI-Filiale (Tarif je nach Zielort).",
+    o_ship_h:"Lieferung per TSI",
+    o_city:"In welcher Stadt holst du ab?", o_city_ph:"Deine Stadt / nächste TSI-Filiale",
+    o_ci:"C.I. des Abholers", o_ci_ph:"Für den TSI-Versand",
+    o_ship_note:"Der Versand läuft per TSI ab Caacupé ins ganze Land — du zahlst ihn bei Abholung in deiner Filiale (Tarif je nach Zielort). Sobald dein Paket rausgeht, schicken wir dir die Ticketnummer per WhatsApp; abholen kannst du mit deiner C.I.",
     o_total:"Zu überweisen", o_submit:"Bestellung absenden",
-    o_err_req:"Bitte Name, WhatsApp und deine Stadt ausfüllen.",
+    o_err_req:"Bitte Name, WhatsApp, Stadt und C.I. ausfüllen.",
     o_err_qty_min:"Wähle mindestens ein Shirt.",
     o_err_qty_max:"Maximal 10 Shirts pro Bestellung — für mehr schreib uns per WhatsApp.",
     o_err_amount:"Der Mindestbetrag ist 100.000 ₲ pro Shirt.",
@@ -532,11 +537,11 @@ const T = {
     pay_note:"Nach der Überweisung schickst du den Beleg per WhatsApp mit deinem Bestellcode, um deine Bestellung zu bestätigen. Fragt deine Bank nach dem Dokument des Kontoinhabers? Schreib uns kurz per WhatsApp, wir schicken es dir sofort.",
     faq_eye:"Häufige Fragen", faq_h:"Fragen & Antworten",
     f1q:"Wann bekomme ich mein Shirt?",
-    f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Danach wird alles gemeinsam gedruckt und dein Paket geht per TSI raus — geschätzt <b class='pt'></b> nach Bestellschluss. Alle Neuigkeiten siehst du auf unserem Instagram @escape.deutschland.",
+    f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Danach wird alles gemeinsam gedruckt und dein Paket geht per TSI raus — geschätzt <b class='pt'></b> nach Bestellschluss. Die Ticketnummer zum Abholen schicken wir dir per WhatsApp, alle Neuigkeiten siehst du auf unserem Instagram @escape.deutschland.",
     f2q:"Wie bezahle ich?",
     f2a:"Per Überweisung oder Giro an die Daten oben. Deine Bestellung ist bestätigt, sobald der Zahlungsbeleg per WhatsApp da ist (Button am Ende der Bestellung).",
     f3q:"Was kostet der Versand?",
-    f3a:"Wir verschicken per TSI ab Caacupé ins ganze Land. Die Gebühr zahlst du bei Abholung deines Pakets in deiner TSI-Filiale — der Tarif hängt vom Zielort ab. Du musst nichts extra überweisen.",
+    f3a:"Wir verschicken per TSI ab Caacupé ins ganze Land. Die Gebühr zahlst du bei Abholung deines Pakets in deiner TSI-Filiale — der Tarif hängt vom Zielort ab. Du musst nichts extra überweisen. Zum Abholen brauchst du deine C.I. und die Ticketnummer, die wir dir per WhatsApp schicken.",
     f4q:"Warum muss ich warten?",
     f4a:"Weil die Shirts erst nach dem Bestellschluss gedruckt werden — so wissen wir, wie viele in welchen Größen produziert werden. Die Produktion dauert etwa eine Woche, danach geht dein Paket per TSI raus.",
     f5q:"Woher weiß ich, dass das Geld ankommt?",
@@ -651,7 +656,8 @@ async function submitOrder(ev){
   const wa   = document.getElementById("o-wa").value.trim();
   const ig   = document.getElementById("o-ig").value.trim();
   const addr = document.getElementById("o-addr").value.trim();
-  if(name.length<2 || wa.replace(/[^\d]/g,"").length<6 || addr.length<3){ _oErr("o_err_req"); return false; }
+  const ci   = document.getElementById("o-ci").value.trim();
+  if(name.length<2 || wa.replace(/[^\d]/g,"").length<6 || addr.length<3 || ci.replace(/[^\d]/g,"").length<4){ _oErr("o_err_req"); return false; }
   if(o.qty < 1){ _oErr("o_err_qty_min"); return false; }
   if(o.qty > 10){ _oErr("o_err_qty_max"); return false; }
   if(o.amt < gsNum(CONFIG.price)){ _oErr("o_err_amount"); return false; }
@@ -671,6 +677,7 @@ async function submitOrder(ev){
     qty:        {integerValue: String(o.qty)},
     amount:     {integerValue: String(o.amt)},
     address:    {stringValue: addr},
+    ci:         {stringValue: ci},
     total:      {integerValue: String(o.total)},
     lang:       {stringValue: lang},
     status:     {stringValue: "nuevo"},
