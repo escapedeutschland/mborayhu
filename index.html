@@ -168,6 +168,10 @@
   .opts label span{flex:1 1 0; min-width:0}
   .opts b{margin-left:auto; white-space:nowrap; padding-left:10px; flex:0 0 auto}
   .opts label:has(input:checked){border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset}
+  .sizegrid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px}
+  .sz{display:flex; flex-direction:column; gap:5px; align-items:center}
+  .sz span{font-size:.78rem; font-weight:600; color:var(--ink-soft)}
+  .sz select{text-align:center; padding:11px 6px !important}
   .totalrow{display:flex; justify-content:space-between; align-items:baseline; border-top:1.5px solid var(--ink); margin-top:22px; padding:14px 2px 16px}
   .totalrow b{font-family:'Fraunces'; font-size:1.5rem}
   #o-err{border-left-color:#B3482F; color:#B3482F}
@@ -204,24 +208,22 @@
 const CONFIG = {
   comingSoon:  true,                           // true = Teaser-Seite; auf false = Aktion ist LIVE
 
-  instagram:   "https://instagram.com/DEIN_HANDLE",
-  handle:      "@DEIN_HANDLE",
+  instagram:   "https://instagram.com/escape.deutschland",
+  handle:      "@escape.deutschland",
   shelterName: "Refugio Pikilines",
   city:        "Luque, Paraguay",
 
   price:         "100.000 ₲",               // Basispreis (Minimum) — Carlos' Marktempfehlung
   tierSolidario: "150.000 ₲",               // Stufe 2
   tierPadrino:   "200.000 ₲",               // Stufe 3
-  color:       "Naturweiß / Beige",
+  color:       { es:"Blanco", de:"Weiß" },
   sizes:       "S · M · L · XL · XXL",
   material:    "100% Baumwolle",
 
   deadline:    "2026-11-30T23:59:00",          // Bestellschluss — PLATZHALTER, vor Launch aufs echte Datum setzen!
-  production:  { es:"aprox. 2–3 semanas", de:"ca. 2–3 Wochen" },
+  production:  { es:"aprox. 1–2 semanas", de:"ca. 1–2 Wochen" },   // Produktion lt. Hersteller 7 Tage + Puffer/Versand
 
   whatsapp:    "4915222487351",                // WhatsApp für Comprobantes (deutsche Nummer, Ländercode 49)
-
-  shippingAsuncion: "25.000 ₲",                // Versandpauschale Gran Asunción — ANPASSEN nach Kurier-Angebot!
 
   bank: {
     bankName: "Itaú",
@@ -329,10 +331,15 @@ const CONFIG = {
         <div class="field full"><label data-i="o_name"></label><input id="o-name" type="text" maxlength="120" data-ph="o_name_ph"></div>
         <div class="field"><label data-i="o_wa"></label><input id="o-wa" type="tel" maxlength="30" data-ph="o_wa_ph"></div>
         <div class="field"><label data-i="o_ig"></label><input id="o-ig" type="text" maxlength="60" placeholder="@"></div>
-        <div class="field"><label data-i="o_size"></label>
-          <select id="o-size"><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div>
-        <div class="field"><label data-i="o_qty"></label>
-          <select id="o-qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+      </div>
+
+      <label class="flabel" data-i="o_sizes"></label>
+      <div class="sizegrid">
+        <div class="sz"><span>S</span><select id="q-S"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+        <div class="sz"><span>M</span><select id="q-M"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+        <div class="sz"><span>L</span><select id="q-L"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+        <div class="sz"><span>XL</span><select id="q-XL"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+        <div class="sz"><span>XXL</span><select id="q-XXL"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
       </div>
 
       <label class="flabel" data-i="o_amount"></label>
@@ -347,15 +354,11 @@ const CONFIG = {
       </div>
       <p class="note" data-i="tier_note" style="margin-top:12px"></p>
 
-      <label class="flabel" data-i="o_delivery"></label>
-      <div class="opts" id="o-del">
-        <label><input type="radio" name="del" value="pickup" checked><span data-i="od_pickup"></span></label>
-        <label><input type="radio" name="del" value="asuncion"><span data-i="od_asu"></span><b>+<span class="sa"></span></b></label>
-        <label><input type="radio" name="del" value="encomienda"><span data-i="od_enc"></span></label>
+      <label class="flabel" data-i="o_addr"></label>
+      <div class="field">
+        <input id="o-addr" type="text" maxlength="300" data-ph="o_addr_ph">
       </div>
-      <div class="field" id="o-addr-wrap" hidden style="margin-top:10px">
-        <label data-i="o_addr"></label><input id="o-addr" type="text" maxlength="300" data-ph="o_addr_ph">
-      </div>
+      <p class="note" data-i="o_ship_note" style="margin-top:12px"></p>
 
       <div class="totalrow"><span class="flabel" style="margin:0" data-i="o_total"></span><b id="o-total">—</b></div>
       <button class="btn" id="o-submit" type="submit" data-i="o_submit"></button>
@@ -434,32 +437,31 @@ const T = {
     cta:"Pedir mi camiseta", bar_lab:"por camiseta", price_note:"+ envío",
     causa_eye:"La causa", causa_h:"Por qué lo hacemos",
     causa_p1:"En <b class='sh'></b> reciben animales heridos, abandonados y desnutridos — en su mayoría perros. Con cada camiseta ayudás a cubrir comida, atención veterinaria y refugio.",
-    causa_p2:"No es un negocio: el 100% de la ganancia (precio menos el costo de impresión) va directo al refugio. Pronto vas a ver acá el video grabado en el lugar.",
+    causa_p2:"No es un negocio: el 100% de la ganancia (precio menos el costo de impresión) va directo al refugio. Toda la acción la documentamos en nuestro Instagram @escape.deutschland.",
     causa_quote:"Cada camiseta es comida, refugio y una segunda oportunidad.",
     back_quote:"Llevá el mensaje a todas partes.",
     prod_eye:"El producto", prod_h:"La camiseta", prod_front:"Frente", prod_back:"Espalda",
     how_eye:"Importante", how_h:"Cómo funciona",
-    s1t:"Hacé tu pedido", s1d:"Completá tu pedido acá mismo en la página — talle, cantidad y tu monto.",
+    s1t:"Hacé tu pedido", s1d:"Completá tu pedido acá mismo en la página — talles, cantidades y tu monto.",
     tier_note:"Todo lo que supere el precio base es 100% donación extra para el refugio.",
     s2t:"Pagá por transferencia", s2d:"Y mandás el comprobante por WhatsApp para confirmar.",
     s3t:"Esperamos el cierre", s3d:"Los pedidos se juntan hasta la fecha límite. Recién ahí se imprimen.",
-    s4t:"Producción y envío", s4d:"Tiempo estimado de producción:",
+    s4t:"Producción y envío", s4d:"Después del cierre, tu pedido sale por TSI. Tiempo estimado hasta la entrega:",
     order_eye:"Tu pedido", order_h:"Pedí la tuya",
     o_name:"Nombre y apellido", o_name_ph:"Tu nombre",
     o_wa:"WhatsApp", o_wa_ph:"09xx xxx xxx",
     o_ig:"Instagram (opcional)",
-    o_size:"Talle", o_qty:"Cantidad",
+    o_sizes:"Talles y cantidad",
     o_amount:"¿Cuánto querés aportar por camiseta?",
     ot_base:"Precio base", ot_sol:"Solidario ❤️", ot_pad:"Padrino 🐾",
     ot_otro:"Otro monto — desde 100.000 ₲, sin tope",
     o_custom_ph:"Tu monto en guaraníes, ej. 250000",
-    o_delivery:"Entrega",
-    od_pickup:"Retiro personal — gratis",
-    od_asu:"Delivery Gran Asunción",
-    od_enc:"Encomienda al interior — pagás al retirar en la terminal",
-    o_addr:"Dirección / Terminal", o_addr_ph:"Ciudad, calle y referencia — o tu terminal de bus",
+    o_addr:"¿En qué ciudad retirás tu pedido?", o_addr_ph:"Tu ciudad / sucursal de TSI más cercana",
+    o_ship_note:"El envío va por TSI desde Caacupé a todo el país. Lo pagás al retirar tu paquete en tu sucursal TSI (tarifa según destino).",
     o_total:"Total a transferir", o_submit:"Enviar pedido",
-    o_err_req:"Completá nombre, WhatsApp y los campos de entrega, por favor.",
+    o_err_req:"Completá nombre, WhatsApp y tu ciudad, por favor.",
+    o_err_qty_min:"Elegí al menos una camiseta.",
+    o_err_qty_max:"Máximo 10 camisetas por pedido — para más, escribinos por WhatsApp.",
     o_err_amount:"El monto mínimo es 100.000 ₲ por camiseta.",
     o_err_net:"No se pudo enviar el pedido 😕 Probá de nuevo en un momento.",
     o_done_h:"¡Pedido recibido! 💛",
@@ -471,13 +473,13 @@ const T = {
     pay_note:"Después de transferir, mandá el comprobante por WhatsApp con tu código de pedido para confirmar. ¿Tu banco te pide el documento del titular? Escribinos por WhatsApp y te lo pasamos al instante.",
     faq_eye:"Preguntas frecuentes", faq_h:"Preguntas y respuestas",
     f1q:"¿Cuándo recibo mi camiseta?",
-    f1a:"Los pedidos se juntan hasta el cierre de la preventa. Recién después se imprimen todas juntas — tiempo estimado de producción: <b class='pt'></b>. Apenas la tuya esté lista, te avisamos por WhatsApp.",
+    f1a:"Los pedidos se juntan hasta el cierre de la preventa. Después se imprimen todos juntos y tu pedido sale por TSI — estimado <b class='pt'></b> después del cierre. Todas las novedades las vas a ver en nuestro Instagram @escape.deutschland.",
     f2q:"¿Cómo pago?",
     f2a:"Por transferencia bancaria o giro a los datos de arriba. Tu pedido queda confirmado cuando recibimos el comprobante por WhatsApp (botón al final del pedido).",
     f3q:"¿Cuánto cuesta el envío?",
-    f3a:"Retiro personal: gratis. Delivery en Gran Asunción: <b class='sa'></b> — se transfiere junto con la camiseta. Interior: por encomienda, el costo lo pagás al retirar en la terminal.",
+    f3a:"Enviamos por TSI desde Caacupé a todo el país. El costo lo pagás vos al retirar tu paquete en tu sucursal TSI — la tarifa depende del destino. No tenés que transferir nada extra.",
     f4q:"¿Por qué hay que esperar?",
-    f4a:"Porque imprimimos exactamente la cantidad pedida: sin stock, sin desperdicio. Así cada guaraní de ganancia va al refugio y no a camisetas sobrantes.",
+    f4a:"Porque las remeras se imprimen recién después del cierre de la preventa — así sabemos cuántas y en qué talles producir. La producción tarda aprox. una semana y después tu pedido sale por TSI.",
     f5q:"¿Cómo sé que la plata llega al refugio?",
     f5a:"Al cerrar la acción publicamos los números y grabamos la entrega de la donación en video, junto con el refugio.",
     f6q:"¿Puedo pagar más que el precio base?",
@@ -494,32 +496,31 @@ const T = {
     cta:"Shirt bestellen", bar_lab:"pro Shirt", price_note:"+ Versand",
     causa_eye:"Die Aktion", causa_h:"Warum wir das machen",
     causa_p1:"Im <b class='sh'></b> landen verletzte, ausgesetzte und ausgehungerte Tiere — meist Hunde. Mit jedem Shirt hilfst du bei Futter, Tierarzt und Unterkunft.",
-    causa_p2:"Kein Geschäft: 100% des Gewinns (Preis minus Druckkosten) gehen direkt ans Tierheim. Bald siehst du hier das Video von vor Ort.",
+    causa_p2:"Kein Geschäft: 100% des Gewinns (Preis minus Druckkosten) gehen direkt ans Tierheim. Die ganze Aktion dokumentieren wir auf unserem Instagram @escape.deutschland.",
     causa_quote:"Jedes Shirt heißt Futter, Schutz und eine zweite Chance.",
     back_quote:"Trag die Botschaft nach draußen.",
     prod_eye:"Das Produkt", prod_h:"Das Shirt", prod_front:"Vorne", prod_back:"Hinten",
     how_eye:"Wichtig", how_h:"So funktioniert's",
-    s1t:"Bestellung aufgeben", s1d:"Direkt hier auf der Seite — Größe, Menge und deinen Betrag wählen.",
+    s1t:"Bestellung aufgeben", s1d:"Direkt hier auf der Seite — Größen, Mengen und deinen Betrag wählen.",
     tier_note:"Alles über dem Basispreis ist zu 100% Extra-Spende fürs Tierheim.",
     s2t:"Per Überweisung zahlen", s2d:"Und den Beleg per WhatsApp zur Bestätigung schicken.",
     s3t:"Bestellfenster läuft", s3d:"Bestellungen werden bis zum Stichtag gesammelt. Erst dann wird gedruckt.",
-    s4t:"Produktion & Versand", s4d:"Geschätzte Produktionszeit:",
+    s4t:"Produktion & Versand", s4d:"Nach Bestellschluss geht dein Paket per TSI raus. Geschätzte Zeit bis zur Lieferung:",
     order_eye:"Deine Bestellung", order_h:"Jetzt bestellen",
     o_name:"Vor- und Nachname", o_name_ph:"Dein Name",
     o_wa:"WhatsApp", o_wa_ph:"09xx xxx xxx",
     o_ig:"Instagram (optional)",
-    o_size:"Größe", o_qty:"Anzahl",
+    o_sizes:"Größen und Anzahl",
     o_amount:"Wie viel möchtest du pro Shirt geben?",
     ot_base:"Basispreis", ot_sol:"Solidario ❤️", ot_pad:"Padrino 🐾",
     ot_otro:"Eigener Betrag — ab 100.000 ₲, ohne Deckel",
     o_custom_ph:"Dein Betrag in Guaraníes, z. B. 250000",
-    o_delivery:"Lieferung",
-    od_pickup:"Selbstabholung — gratis",
-    od_asu:"Delivery Gran Asunción",
-    od_enc:"Encomienda ins Landesinnere — zahlst du am Terminal",
-    o_addr:"Adresse / Terminal", o_addr_ph:"Stadt, Straße und Referenz — oder dein Bus-Terminal",
+    o_addr:"In welcher Stadt holst du dein Paket ab?", o_addr_ph:"Deine Stadt / nächste TSI-Filiale",
+    o_ship_note:"Der Versand läuft per TSI ab Caacupé ins ganze Land. Du zahlst ihn bei Abholung deines Pakets in deiner TSI-Filiale (Tarif je nach Zielort).",
     o_total:"Zu überweisen", o_submit:"Bestellung absenden",
-    o_err_req:"Bitte Name, WhatsApp und die Lieferangaben ausfüllen.",
+    o_err_req:"Bitte Name, WhatsApp und deine Stadt ausfüllen.",
+    o_err_qty_min:"Wähle mindestens ein Shirt.",
+    o_err_qty_max:"Maximal 10 Shirts pro Bestellung — für mehr schreib uns per WhatsApp.",
     o_err_amount:"Der Mindestbetrag ist 100.000 ₲ pro Shirt.",
     o_err_net:"Senden hat nicht geklappt 😕 Versuch es gleich nochmal.",
     o_done_h:"Bestellung eingegangen! 💛",
@@ -531,13 +532,13 @@ const T = {
     pay_note:"Nach der Überweisung schickst du den Beleg per WhatsApp mit deinem Bestellcode, um deine Bestellung zu bestätigen. Fragt deine Bank nach dem Dokument des Kontoinhabers? Schreib uns kurz per WhatsApp, wir schicken es dir sofort.",
     faq_eye:"Häufige Fragen", faq_h:"Fragen & Antworten",
     f1q:"Wann bekomme ich mein Shirt?",
-    f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Erst danach wird alles gemeinsam gedruckt — geschätzte Produktionszeit: <b class='pt'></b>. Sobald dein Shirt fertig ist, melden wir uns per WhatsApp.",
+    f1a:"Die Bestellungen werden bis zum Bestellschluss gesammelt. Danach wird alles gemeinsam gedruckt und dein Paket geht per TSI raus — geschätzt <b class='pt'></b> nach Bestellschluss. Alle Neuigkeiten siehst du auf unserem Instagram @escape.deutschland.",
     f2q:"Wie bezahle ich?",
     f2a:"Per Überweisung oder Giro an die Daten oben. Deine Bestellung ist bestätigt, sobald der Zahlungsbeleg per WhatsApp da ist (Button am Ende der Bestellung).",
     f3q:"Was kostet der Versand?",
-    f3a:"Selbstabholung: gratis. Delivery in Gran Asunción: <b class='sa'></b> — wird zusammen mit dem Shirt überwiesen. Landesinnere: per Encomienda, die Gebühr zahlst du bei Abholung am Terminal.",
+    f3a:"Wir verschicken per TSI ab Caacupé ins ganze Land. Die Gebühr zahlst du bei Abholung deines Pakets in deiner TSI-Filiale — der Tarif hängt vom Zielort ab. Du musst nichts extra überweisen.",
     f4q:"Warum muss ich warten?",
-    f4a:"Weil wir genau die bestellte Menge drucken: kein Lager, keine Verschwendung. So geht jeder Guaraní Gewinn ans Tierheim — nicht in übrige Shirts.",
+    f4a:"Weil die Shirts erst nach dem Bestellschluss gedruckt werden — so wissen wir, wie viele in welchen Größen produziert werden. Die Produktion dauert etwa eine Woche, danach geht dein Paket per TSI raus.",
     f5q:"Woher weiß ich, dass das Geld ankommt?",
     f5a:"Zum Abschluss veröffentlichen wir die Zahlen und filmen die Spendenübergabe gemeinsam mit dem Tierheim.",
     f6q:"Kann ich mehr als den Basispreis zahlen?",
@@ -572,12 +573,11 @@ function fillDynamic(){
   document.querySelectorAll(".tb").forEach(e=>e.textContent=CONFIG.price);
   document.querySelectorAll(".ts").forEach(e=>e.textContent=CONFIG.tierSolidario);
   document.querySelectorAll(".tp").forEach(e=>e.textContent=CONFIG.tierPadrino);
-  document.getElementById("f-color").textContent = CONFIG.color;
+  document.getElementById("f-color").textContent = CONFIG.color[lang];
   document.getElementById("f-sizes").textContent = CONFIG.sizes;
   document.getElementById("f-material").textContent = CONFIG.material;
   document.getElementById("prodtime").textContent = CONFIG.production[lang];
   document.querySelectorAll(".pt").forEach(e=>e.textContent=CONFIG.production[lang]);
-  document.querySelectorAll(".sa").forEach(e=>e.textContent=CONFIG.shippingAsuncion);
   document.getElementById("b-bank").textContent = CONFIG.bank.bankName;
   document.getElementById("b-holder").textContent = CONFIG.bank.holder;
   document.getElementById("b-acc").textContent = CONFIG.bank.account;
@@ -622,18 +622,21 @@ function _amtValue(){
   if(v==="pad")  return gsNum(CONFIG.tierPadrino);
   return gsNum(document.getElementById("o-custom").value);
 }
-function _delValue(){ return document.querySelector('input[name="del"]:checked').value; }
+const SIZES = ["S","M","L","XL","XXL"];
+function _sizeQtys(){
+  const q = {};
+  SIZES.forEach(s=>{ q[s] = parseInt(document.getElementById("q-"+s).value,10)||0; });
+  return q;
+}
 function updateOrderUI(){
   const amtSel = document.querySelector('input[name="amt"]:checked').value;
   document.getElementById("o-custom-wrap").hidden = (amtSel!=="otro");
-  const del = _delValue();
-  document.getElementById("o-addr-wrap").hidden = (del==="pickup");
-  const qty = parseInt(document.getElementById("o-qty").value,10)||1;
+  const sizes = _sizeQtys();
+  const qty = SIZES.reduce((n,s)=>n+sizes[s],0);
   const amt = _amtValue();
-  const ship = (del==="asuncion") ? gsNum(CONFIG.shippingAsuncion) : 0;
-  const total = (amt>0) ? qty*amt+ship : 0;
+  const total = (qty>0 && amt>0) ? qty*amt : 0;
   document.getElementById("o-total").textContent = total>0 ? gsFmt(total) : "—";
-  return {qty, amt, ship, total, del};
+  return {qty, amt, total, sizes};
 }
 function _oErr(key){
   const e = document.getElementById("o-err");
@@ -647,9 +650,10 @@ async function submitOrder(ev){
   const name = document.getElementById("o-name").value.trim();
   const wa   = document.getElementById("o-wa").value.trim();
   const ig   = document.getElementById("o-ig").value.trim();
-  const size = document.getElementById("o-size").value;
   const addr = document.getElementById("o-addr").value.trim();
-  if(name.length<2 || wa.replace(/[^\d]/g,"").length<6 || (o.del!=="pickup" && addr.length<3)){ _oErr("o_err_req"); return false; }
+  if(name.length<2 || wa.replace(/[^\d]/g,"").length<6 || addr.length<3){ _oErr("o_err_req"); return false; }
+  if(o.qty < 1){ _oErr("o_err_qty_min"); return false; }
+  if(o.qty > 10){ _oErr("o_err_qty_max"); return false; }
   if(o.amt < gsNum(CONFIG.price)){ _oErr("o_err_amount"); return false; }
   const code = "MB-" + Date.now().toString(36).toUpperCase().slice(-6);
   const btn = document.getElementById("o-submit");
@@ -659,11 +663,14 @@ async function submitOrder(ev){
     name:       {stringValue: name},
     whatsapp:   {stringValue: wa},
     instagram:  {stringValue: ig},
-    size:       {stringValue: size},
+    qty_s:      {integerValue: String(o.sizes.S)},
+    qty_m:      {integerValue: String(o.sizes.M)},
+    qty_l:      {integerValue: String(o.sizes.L)},
+    qty_xl:     {integerValue: String(o.sizes.XL)},
+    qty_xxl:    {integerValue: String(o.sizes.XXL)},
     qty:        {integerValue: String(o.qty)},
     amount:     {integerValue: String(o.amt)},
-    delivery:   {stringValue: o.del},
-    address:    {stringValue: o.del==="pickup" ? "" : addr},
+    address:    {stringValue: addr},
     total:      {integerValue: String(o.total)},
     lang:       {stringValue: lang},
     status:     {stringValue: "nuevo"},
@@ -678,9 +685,10 @@ async function submitOrder(ev){
     done.hidden = false;
     document.getElementById("o-done-code").textContent = code;
     document.getElementById("o-done-total").textContent = gsFmt(o.total);
+    const sizesTxt = SIZES.filter(s=>o.sizes[s]>0).map(s=>o.sizes[s]+"× "+s).join(", ");
     const msg = (lang==="es")
-      ? "¡Hola! Soy "+name+" 🐾 Mi pedido "+code+": "+o.qty+"× talle "+size+", total "+gsFmt(o.total)+". Acá va el comprobante:"
-      : "Hallo! Ich bin "+name+" 🐾 Meine Bestellung "+code+": "+o.qty+"× Größe "+size+", gesamt "+gsFmt(o.total)+". Hier der Beleg:";
+      ? "¡Hola! Soy "+name+" 🐾 Mi pedido "+code+": "+sizesTxt+", total "+gsFmt(o.total)+". Acá va el comprobante:"
+      : "Hallo! Ich bin "+name+" 🐾 Meine Bestellung "+code+": "+sizesTxt+", gesamt "+gsFmt(o.total)+". Hier der Beleg:";
     document.getElementById("o-wa-btn").href = "https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg);
     done.scrollIntoView({block:"center", behavior:"smooth"});
   }catch(err){
@@ -690,8 +698,9 @@ async function submitOrder(ev){
   return false;
 }
 document.getElementById("orderForm").addEventListener("submit", submitOrder);
-["o-qty","o-custom"].forEach(id=>document.getElementById(id).addEventListener("input", updateOrderUI));
-document.querySelectorAll('input[name="amt"],input[name="del"]').forEach(r=>r.addEventListener("change", updateOrderUI));
+document.getElementById("o-custom").addEventListener("input", updateOrderUI);
+SIZES.forEach(s=>document.getElementById("q-"+s).addEventListener("change", updateOrderUI));
+document.querySelectorAll('input[name="amt"]').forEach(r=>r.addEventListener("change", updateOrderUI));
 
 applyLang("de"); tick(); setInterval(tick,30000); updateOrderUI();
 var isPreview=/(?:[?&#])preview\b/i.test(location.search + location.hash);
