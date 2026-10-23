@@ -224,11 +224,11 @@ const CONFIG = {
   shippingAsuncion: "25.000 ₲",                // Versandpauschale Gran Asunción — ANPASSEN nach Kurier-Angebot!
 
   bank: {
-    bankName: "[Banco / Financiera]",
-    holder:   "[Titular de la cuenta]",
-    account:  "[Número de cuenta]",
-    alias:    "[Alias]",
-    ci:       "[C.I.]"
+    bankName: "Itaú",
+    holder:   "MAXIME CHRISTALLE",
+    account:  "25395534",
+    alias:    "",                              // SIPAP-Alias (optional) — leer = Zeile wird ausgeblendet
+    ci:       ""                               // C.I./Documento des Titulars (optional) — leer = ausgeblendet
   }
 };
 </script>
@@ -583,6 +583,8 @@ function fillDynamic(){
   document.getElementById("b-acc").textContent = CONFIG.bank.account;
   document.getElementById("b-alias").textContent = CONFIG.bank.alias;
   document.getElementById("b-ci").textContent = CONFIG.bank.ci;
+  document.getElementById("b-alias").closest(".payrow").hidden = !CONFIG.bank.alias;
+  document.getElementById("b-ci").closest(".payrow").hidden = !CONFIG.bank.ci;
   const ig=document.getElementById("ig"); ig.textContent=CONFIG.handle; ig.href=CONFIG.instagram;
   document.getElementById("foot-shelter").textContent = CONFIG.shelterName + " · " + CONFIG.city;
   document.querySelectorAll(".js-order").forEach(a=>{ a.href="#order"; a.removeAttribute("target"); });
